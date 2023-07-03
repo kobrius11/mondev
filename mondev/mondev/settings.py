@@ -34,6 +34,8 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'mondev_site',
     'academy',
+    'tinymce',
+    'adminsortable2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
