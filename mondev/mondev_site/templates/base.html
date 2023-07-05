@@ -1,0 +1,33 @@
+<!DOCTYPE html>{% load static i18n %}{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MoNDA{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'mondev_site/css/style.css' %}">
+    {{ form.media }}
+    {% if user.is_authenticated %}
+        <script>
+            var user_auth_token = "{{ user.auth_token }}";
+        </script>
+    {% endif %}
+</head>
+<body>
+<main>
+    {% block messages %}{% if messages %}
+        <div class="container">
+        {% for message in messages %}
+            <div class="box box-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+        </div>
+    {% endif %}{% endblock messages %}
+    {% block complex_content %}
+        <div class="container">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    {% endblock complex_content %}
+</main>
+</body>
+</html>

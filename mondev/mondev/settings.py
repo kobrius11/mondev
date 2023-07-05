@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'academy',
     'tinymce',
     'adminsortable2',
+    'rest_framework',
+    'rest_framework.authtoken',    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,6 +50,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -115,7 +118,7 @@ LANGUAGES = (
     ('lt', 'Lietuvių'),
 )
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Vilnius'
 
 USE_I18N = True
 
@@ -135,3 +138,30 @@ MEDIA_ROOT = BASE_DIR.joinpath(MEDIA_URL)
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_REDIRECT_URL = '/'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 300,
+    'cleanup_on_startup': False,
+    'custom_undo_redo_levels': 20,
+    'selector': 'textarea',
+    'plugins': '''contextmenu textcolor lists directionality visualchars charmap media image ''',
+    'toolbar1': '''
+            removeformat | bold italic underline | forecolor backcolor | 
+            alignleft alignright aligncenter alignjustify | indent outdent | bullist numlist |
+            visualblocks visualchars | charmap | image media
+            ''',
+    'statusbar': True,
+    'menubar': False,
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
