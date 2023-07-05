@@ -13,7 +13,12 @@ class TimeTrackedModel(models.Model):
     updated_at = models.DateTimeField(_("updated at"), auto_now=True, db_index=True)    
 
     def get_absolute_url(self):
-        return reverse(f"{self.__class__.__name__.lower()}_detail", kwargs={"pk": self.pk})
+        try:
+            url = reverse(f"{self.__class__.__name__.lower()}_detail", kwargs={"pk": self.pk})
+        except Exception as e:
+            print(e)
+        else:
+            return url 
 
     class Meta:
         abstract = True
