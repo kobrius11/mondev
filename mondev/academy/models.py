@@ -8,14 +8,32 @@ from tinymce.models import HTMLField
 User = get_user_model()
 
 
-class Course(models.Model):
-
-    code = models.SlugField(_("short name"), max_length=7, db_index=True, null=True, blank=True)
-    name = models.CharField(_("name"), max_length=127, db_index=True)
-    price = models.DecimalField(_("price"), max_digits=18, decimal_places=2, default=0)
-    description = HTMLField(_("description"))
+class TimeTrackedModel(models.Model):
     created_at = models.DateTimeField(_("created at"), auto_now_add=True, db_index=True)
-    updated_at = models.DateTimeField(_("updated at"), auto_now=True, db_index=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True, db_index=True)    
+
+    class Meta:
+        abstract = True
+
+
+class NamedModel(TimeTrackedModel):
+    name = models.CharField(_("name"), max_length=127, db_index=True)
+
+    class Meta:
+        abstract = True
+
+
+class CodeNamedModel(TimeTrackedModel):
+    code = models.SlugField(_("code"), max_length=7, db_index=True, null=True, blank=True)
+    name = models.CharField(_("name"), max_length=127, db_index=True)
+
+    class Meta:
+        abstract = True
+
+
+class Course(CodeNamedModel):
+    price = models.DecimalField(_("price"), max_digits=18, decimal_places=2, default=0)
+    description = HTMLField(_("description"), blank=True, null=True)
 
     class Meta:
         verbose_name = _("course")
@@ -28,12 +46,8 @@ class Course(models.Model):
         return reverse("course_detail", kwargs={"pk": self.pk})
 
 
-class Topic(models.Model):
-
-    name = models.CharField(_("name"), max_length=127, db_index=True)
-    created_at = models.DateTimeField(_("created at"), auto_now_add=True, db_index=True)
-    updated_at = models.DateTimeField(_("updated at"), auto_now=True, db_index=True)
-    description = HTMLField(_("description"))
+class Topic(NamedModel):
+    description = HTMLField(_("description"), blank=True, null=True)
     length = models.DurationField(_("Length"), default=timedelta(days=0, seconds=0))
 
     class Meta:
@@ -47,13 +61,10 @@ class Topic(models.Model):
         return reverse("topic_detail", kwargs={"pk": self.pk})
 
 
-class CourseTopic(models.Model):
-
+class CourseTopic(TimeTrackedModel):
     course = models.ForeignKey(Course, verbose_name=_("course"), on_delete=models.CASCADE, related_name='topics')
     topic = models.ForeignKey(Topic, verbose_name=_("topic"), on_delete=models.CASCADE, related_name='courses')
     order = models.IntegerField(_("order"), default=0, db_index=True)
-    created_at = models.DateTimeField(_("created at"), auto_now_add=True, db_index=True)
-    updated_at = models.DateTimeField(_("updated at"), auto_now=True, db_index=True)
 
     class Meta:
         verbose_name = _("course topic")
@@ -67,15 +78,10 @@ class CourseTopic(models.Model):
         return reverse("coursetopic_detail", kwargs={"pk": self.pk})
 
 
-class CourseGroup(models.Model):
-
-    name = models.CharField(_("name"), max_length=63, db_index=True)
-    code = models.SlugField(_("short name"), max_length=7, db_index=True, unique=True)
+class CourseGroup(CodeNamedModel):
     course = models.ForeignKey(Course, verbose_name=_("course"), on_delete=models.CASCADE, related_name='groups')
     starting_date = models.DateField(_("starting date"), null=True, blank=True, db_index=True)
     price = models.DecimalField(_("price"), max_digits=18, decimal_places=2, default=0)
-    created_at = models.DateTimeField(_("created at"), auto_now_add=True, db_index=True)
-    updated_at = models.DateTimeField(_("updated at"), auto_now=True, db_index=True)
 
     class Meta:
         verbose_name = _("course group")
@@ -89,14 +95,11 @@ class CourseGroup(models.Model):
         return reverse("coursegroup_detail", kwargs={"pk": self.pk})
 
 
-class CourseGroupStudent(models.Model):
-
+class CourseGroupStudent(TimeTrackedModel):
     user = models.ForeignKey(User, verbose_name=_("user"), on_delete=models.CASCADE, related_name='course_groups')
     course_group = models.ForeignKey(CourseGroup, verbose_name=_("course group"), on_delete=models.CASCADE, related_name='students')
     price = models.DecimalField(_("price"), max_digits=18, decimal_places=2, default=0)
     paid = models.DecimalField(_("paid"), max_digits=18, decimal_places=2, default=0)
-    created_at = models.DateTimeField(_("created at"), auto_now_add=True, db_index=True)
-    updated_at = models.DateTimeField(_("updated at"), auto_now=True, db_index=True)
 
     class Meta:
         verbose_name = _("course group student")
@@ -110,15 +113,11 @@ class CourseGroupStudent(models.Model):
         return reverse("coursegroupstudent_detail", kwargs={"pk": self.pk})
 
 
-class TopicMaterial(models.Model):
-
-    name = models.CharField(_("name"), max_length=63)
+class TopicMaterial(NamedModel):
     topic = models.ForeignKey(Topic, verbose_name=_("topic"), on_delete=models.CASCADE, related_name='materials')
     order = models.IntegerField(_("order"), default=0)
     url = models.URLField(_("URL"), max_length=250, null=True, blank=True)
     file = models.FileField(_("file"), upload_to='academy/topic_material/', max_length=127, null=True, blank=True)
-    created_at = models.DateTimeField(_("created at"), auto_now_add=True, db_index=True)
-    updated_at = models.DateTimeField(_("updated at"), auto_now=True, db_index=True)
 
     class Meta:
         verbose_name = _("topic material")
