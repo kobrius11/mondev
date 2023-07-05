@@ -12,6 +12,9 @@ class TimeTrackedModel(models.Model):
     created_at = models.DateTimeField(_("created at"), auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(_("updated at"), auto_now=True, db_index=True)    
 
+    def get_absolute_url(self):
+        return reverse(f"{self.__class__.__name__.lower()}_detail", kwargs={"pk": self.pk})
+
     class Meta:
         abstract = True
 
@@ -19,13 +22,15 @@ class TimeTrackedModel(models.Model):
 class NamedModel(TimeTrackedModel):
     name = models.CharField(_("name"), max_length=127, db_index=True)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         abstract = True
 
 
-class CodeNamedModel(TimeTrackedModel):
+class CodeNamedModel(NamedModel):
     code = models.SlugField(_("code"), max_length=7, db_index=True, null=True, blank=True)
-    name = models.CharField(_("name"), max_length=127, db_index=True)
 
     class Meta:
         abstract = True
@@ -39,12 +44,6 @@ class Course(CodeNamedModel):
         verbose_name = _("course")
         verbose_name_plural = _("courses")
 
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse("course_detail", kwargs={"pk": self.pk})
-
 
 class Topic(NamedModel):
     description = HTMLField(_("description"), blank=True, null=True)
@@ -53,12 +52,6 @@ class Topic(NamedModel):
     class Meta:
         verbose_name = _("topic")
         verbose_name_plural = _("topics")
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse("topic_detail", kwargs={"pk": self.pk})
 
 
 class CourseTopic(TimeTrackedModel):
@@ -74,9 +67,6 @@ class CourseTopic(TimeTrackedModel):
     def __str__(self):
         return f"{self.course}: {self.topic}"
 
-    def get_absolute_url(self):
-        return reverse("coursetopic_detail", kwargs={"pk": self.pk})
-
 
 class CourseGroup(CodeNamedModel):
     course = models.ForeignKey(Course, verbose_name=_("course"), on_delete=models.CASCADE, related_name='groups')
@@ -87,12 +77,6 @@ class CourseGroup(CodeNamedModel):
         verbose_name = _("course group")
         verbose_name_plural = _("course groups")
         ordering = ('code',)
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse("coursegroup_detail", kwargs={"pk": self.pk})
 
 
 class CourseGroupStudent(TimeTrackedModel):
@@ -109,9 +93,6 @@ class CourseGroupStudent(TimeTrackedModel):
     def __str__(self):
         return f"{self.course_group}: {self.user}"
 
-    def get_absolute_url(self):
-        return reverse("coursegroupstudent_detail", kwargs={"pk": self.pk})
-
 
 class TopicMaterial(NamedModel):
     topic = models.ForeignKey(Topic, verbose_name=_("topic"), on_delete=models.CASCADE, related_name='materials')
@@ -122,10 +103,3 @@ class TopicMaterial(NamedModel):
     class Meta:
         verbose_name = _("topic material")
         verbose_name_plural = _("topic materials")
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse("topicmaterial_detail", kwargs={"pk": self.pk})
-
