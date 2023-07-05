@@ -10,10 +10,12 @@ User = get_user_model()
 
 class Course(models.Model):
 
+    code = models.SlugField(_("short name"), max_length=7, db_index=True, null=True, blank=True)
     name = models.CharField(_("name"), max_length=127, db_index=True)
+    price = models.DecimalField(_("price"), max_digits=18, decimal_places=2, default=0)
+    description = HTMLField(_("description"))
     created_at = models.DateTimeField(_("created at"), auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(_("updated at"), auto_now=True, db_index=True)
-    description = HTMLField(_("description"))
 
     class Meta:
         verbose_name = _("course")
@@ -63,3 +65,68 @@ class CourseTopic(models.Model):
 
     def get_absolute_url(self):
         return reverse("coursetopic_detail", kwargs={"pk": self.pk})
+
+
+class CourseGroup(models.Model):
+
+    name = models.CharField(_("name"), max_length=63, db_index=True)
+    code = models.SlugField(_("short name"), max_length=7, db_index=True, unique=True)
+    course = models.ForeignKey(Course, verbose_name=_("course"), on_delete=models.CASCADE, related_name='groups')
+    starting_date = models.DateField(_("starting date"), null=True, blank=True, db_index=True)
+    price = models.DecimalField(_("price"), max_digits=18, decimal_places=2, default=0)
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True, db_index=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True, db_index=True)
+
+    class Meta:
+        verbose_name = _("course group")
+        verbose_name_plural = _("course groups")
+        ordering = ('code',)
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("coursegroup_detail", kwargs={"pk": self.pk})
+
+
+class CourseGroupStudent(models.Model):
+
+    user = models.ForeignKey(User, verbose_name=_("user"), on_delete=models.CASCADE, related_name='course_groups')
+    course_group = models.ForeignKey(CourseGroup, verbose_name=_("course group"), on_delete=models.CASCADE, related_name='students')
+    price = models.DecimalField(_("price"), max_digits=18, decimal_places=2, default=0)
+    paid = models.DecimalField(_("paid"), max_digits=18, decimal_places=2, default=0)
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True, db_index=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True, db_index=True)
+
+    class Meta:
+        verbose_name = _("course group student")
+        verbose_name_plural = _("course group students")
+        ordering = ('course_group', 'user')
+
+    def __str__(self):
+        return f"{self.course_group}: {self.user}"
+
+    def get_absolute_url(self):
+        return reverse("coursegroupstudent_detail", kwargs={"pk": self.pk})
+
+
+class TopicMaterial(models.Model):
+
+    name = models.CharField(_("name"), max_length=63)
+    topic = models.ForeignKey(Topic, verbose_name=_("topic"), on_delete=models.CASCADE, related_name='materials')
+    order = models.IntegerField(_("order"), default=0)
+    url = models.URLField(_("URL"), max_length=250, null=True, blank=True)
+    file = models.FileField(_("file"), upload_to='academy/topic_material/', max_length=127, null=True, blank=True)
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True, db_index=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True, db_index=True)
+
+    class Meta:
+        verbose_name = _("topic material")
+        verbose_name_plural = _("topic materials")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("topicmaterial_detail", kwargs={"pk": self.pk})
+
