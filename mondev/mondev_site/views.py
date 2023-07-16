@@ -1,10 +1,8 @@
 from django.utils import timezone
-from typing import Optional
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.db.models import QuerySet
 from django.views import generic
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect
 from . import models
 
 User = get_user_model()
@@ -26,3 +24,7 @@ class PageDetail(UserPassesTestMixin, generic.DetailView):
         ):
             return True
         return False
+
+
+def index(request):
+    return redirect('page_slug', slug='welcome')

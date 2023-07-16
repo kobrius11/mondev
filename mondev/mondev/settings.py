@@ -149,10 +149,10 @@ TINYMCE_DEFAULT_CONFIG = {
     'cleanup_on_startup': False,
     'custom_undo_redo_levels': 20,
     'selector': 'textarea',
-    'plugins': '''contextmenu textcolor lists directionality visualchars charmap media image ''',
+    'plugins': 'contextmenu textcolor lists directionality visualchars charmap media image advlist autolink code',
     'toolbar1': '''
-            removeformat | bold italic underline | forecolor backcolor | 
-            alignleft alignright aligncenter alignjustify | indent outdent | bullist numlist |
+            code removeformat | formatselect bold italic underline forecolor backcolor | 
+            alignleft alignright aligncenter alignjustify | indent outdent bullist numlist |
             visualblocks visualchars | charmap | image media
             ''',
     'statusbar': True,

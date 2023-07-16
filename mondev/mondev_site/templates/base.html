@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}MoNDA{% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'mondev_site/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'mondev_site/css/mobile.css' %}">
     {{ form.media }}
     {% if user.is_authenticated %}
         <script>
@@ -14,7 +15,17 @@
     {% endif %}
 </head>
 <body>
-<main>
+    <header>
+        <nav class="main">
+            <span class="logo"><a href="{% url 'index' %}">MoNDA</a></span>
+            <ul class="top-level-menu">
+                {% if request.user.is_superuser %}
+                    <li><a href="{% url 'admin:index' %}">{% trans "admin"|capfirst %}</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <main>
     {% block messages %}{% if messages %}
         <div class="container">
         {% for message in messages %}
@@ -28,6 +39,11 @@
             {% endblock content %}
         </div>
     {% endblock complex_content %}
-</main>
+    </main>
+    <footer>
+        <div class="container">
+            &copy; 2023 Middle of Nowhere Developer Academy
+        </div>
+    </footer>
 </body>
 </html>
