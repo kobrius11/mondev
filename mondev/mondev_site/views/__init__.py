@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.views import generic
 from django.shortcuts import redirect
-from . import models
+from .. import models
 
 User = get_user_model()
 

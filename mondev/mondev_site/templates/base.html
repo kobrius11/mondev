@@ -5,14 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}MoNDA{% endblock title %}</title>
-    <link rel="stylesheet" href="{% static 'mondev_site/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'mondev_site/css/mobile.css' %}">
-    {{ form.media }}
     {% if user.is_authenticated %}
         <script>
             var user_auth_token = "{{ user.auth_token }}";
+            var sidebar_state_open_url = "{% url 'api_sidebar_state' 1 %}";
+            var sidebar_state_closed_url = "{% url 'api_sidebar_state' 0 %}";
         </script>
     {% endif %}
+    <link rel="stylesheet" href="{% static 'mondev_site/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'mondev_site/css/mobile.css' %}">
+    <script src="{% static 'mondev_site/js/ui.js' %}"></script>
+    {{ form.media }}
 </head>
 <body>
     <header>
@@ -26,15 +29,20 @@
         </nav>
     </header>
     <main>
-    {% block messages %}{% if messages %}
-        <div class="container">
-        {% for message in messages %}
-            <div class="box box-{{ message.tags }}">{{ message }}</div>
-        {% endfor %}
-        </div>
-    {% endif %}{% endblock messages %}
     {% block complex_content %}
+        <aside class="sidebar">
+            <a class="btn text-right {% if request.session.sidebar_state %}block{% else %}hidden{% endif %}" id="sidebar-collapse" onclick="monda_collapse('sidebar');">&#171;</a>
+            <a class="btn {% if request.session.sidebar_state %}hidden{% else %}block{% endif %}" id="sidebar-uncollapse" onclick="monda_uncollapse('sidebar');">&#187;</a>
+            <div id="sidebar-content" class="{% if request.session.sidebar_state %}{% else %}hidden{% endif %}">{% block sidebar %}
+                <h3>{% trans "your courses"|title %}</h3>
+            {% endblock sidebar %}</div>
+        </aside>
         <div class="container">
+            {% block messages %}
+                {% if messages %}{% for message in messages %}
+                    <div class="box box-{{ message.tags }}">{{ message }}</div>
+                {% endfor %}{% endif %}
+            {% endblock messages %}
             {% block content %}
             {% endblock content %}
         </div>

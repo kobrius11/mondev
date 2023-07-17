@@ -8,6 +8,8 @@ body {
 }
 
 main {
+    display: flex;
+    flex-direction: row;
     flex-grow: 1;
     background-color: #cccccc;
 }
@@ -16,6 +18,8 @@ header {
     background-color: #222222;
     color: #cccccc;
     border-bottom: 4px solid #ffcc00;
+    box-shadow: 0 2px 5px #666666;
+    z-index: 1000;
 }
 
 header a, footer a {
@@ -61,4 +65,55 @@ footer {
     width: 70vw;
     margin: 0 auto;
     padding: 0 0.5rem;
+}
+
+aside.sidebar {
+    background-color: #aaaaaa;
+    border-right: 1px solid #cccccc;
+    box-shadow: 2px 0 5px #666666;
+    z-index: 900;
+}
+
+#sidebar-content {
+    padding: 0;
+}
+
+aside.sidebar h2, aside.sidebar h3 {
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    background-color: #999999;
+    border-bottom: 1px solid #cccccc;
+}
+
+.block {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+.float-right {
+    float: right;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.btn {
+    padding: 0.25rem 0.5rem;
+    margin: 0.25rem;
+    border: 1px solid #666666;
+    border-radius: 0.2rem;
+    cursor: pointer;
+    background-color: #999999;
+}
+
+.btn:hover {
+    background-color: #bbbbbb;
 }
