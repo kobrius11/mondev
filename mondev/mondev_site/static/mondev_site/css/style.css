@@ -12,14 +12,18 @@ main {
     flex-direction: row;
     flex-grow: 1;
     background-color: #cccccc;
+    padding-top: 5rem;
 }
 
 header {
-    background-color: #222222;
+    background: #222222;
+    background: linear-gradient(0deg, #444444 0%, #000000 40%, #222222 80%, #333333 100%);
     color: #cccccc;
     border-bottom: 4px solid #ffcc00;
     box-shadow: 0 2px 5px #666666;
     z-index: 1000;
+    position: fixed;
+    width: 100vw;
 }
 
 header a, footer a {
@@ -41,6 +45,7 @@ header nav.main ul {
     flex-wrap: wrap;
     gap: 1rem;
     padding-inline-start: 0;
+    padding-right: 2rem;
 }
 
 header nav.main ul li {
@@ -52,6 +57,11 @@ header nav.main ul li {
 header nav.main .logo {
     margin: 0.5rem;
     padding: 1rem 0;
+}
+
+.top-level-menu {
+    width: 100%;
+    padding-right: 0.5rem;
 }
 
 footer {
@@ -72,6 +82,7 @@ aside.sidebar {
     border-right: 1px solid #cccccc;
     box-shadow: 2px 0 5px #666666;
     z-index: 900;
+    position: fixed;
 }
 
 #sidebar-content {
@@ -81,8 +92,6 @@ aside.sidebar {
 aside.sidebar h2, aside.sidebar h3 {
     padding: 0.5rem;
     margin: 0.5rem 0;
-    background-color: #999999;
-    border-bottom: 1px solid #cccccc;
 }
 
 .block {
@@ -107,13 +116,56 @@ aside.sidebar h2, aside.sidebar h3 {
 
 .btn {
     padding: 0.25rem 0.5rem;
-    margin: 0.25rem;
+    /* margin: 0.25rem; */
     border: 1px solid #666666;
     border-radius: 0.2rem;
     cursor: pointer;
     background-color: #999999;
+    color: #000000;
+    text-decoration: none;
 }
 
 .btn:hover {
     background-color: #bbbbbb;
+}
+
+.dim {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.spacer {
+    flex-grow: 1;
+}
+
+form p label {
+    width: 20vw;
+    display: inline-block;
+    border-bottom: 1px dotted #666666;
+}
+
+h1, h2, h3, h4 {
+    background: #bbbbbb;
+    background: linear-gradient(0deg, #aaaaaa 0%, #dddddd 80%, #ffffff 100%);
+    border-bottom: 2px solid #ffcc00;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    background: linear-gradient(0deg, #bbbbbb 0%, #eeeeee 80%, #ffffff 100%);
+    border-bottom: 3px solid #ffcc00;
+}
+
+.box {
+    margin: 0.25rem 0;
+    padding: 0.5rem;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    border: 1px solid #666666;
+    border-bottom: 2px solid #ffcc00;
+    background: #bbbbbb;
+    background: linear-gradient(0deg, #aaaaaa 0%, #dddddd 80%, #ffffff 100%);
+}
+
+.user-profile-picture {
+    max-height: 20vh;
 }

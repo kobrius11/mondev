@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'mondev_site',
+    'user_profile',
     'academy',
     'tinymce',
     'adminsortable2',
