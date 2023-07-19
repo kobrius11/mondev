@@ -20,19 +20,16 @@ class PageDetail(UserPassesTestMixin, generic.DetailView):
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         self.object = self.get_object()
         language = get_language()
-        if language != LANGUAGE_CODE:
-            translation = models.PageTranslation.objects.filter(page=self.object, language=language)
-            if translation.exists():
-                self.object = translation.first()
-                return redirect('page_slug', slug=self.object.slug)
-        else:
-            try:
-                translation = models.PageTranslation.objects.get(page_ptr_id=self.object.id)
-                self.object = models.Page.objects.get(id=translation.page_id)
-            except:
-                pass # page is in original language
-            else:
-                return redirect('page_slug', slug=self.object.slug)
+        # determine if the page itself is a translation
+        translation = models.PageTranslation.objects.filter(page_ptr_id=self.object.id).first()
+        # check for the language change
+        if language != LANGUAGE_CODE or (translation and language != translation.language):
+            correct_translation = models.PageTranslation.objects.filter(page=self.object, language=language).first()
+            if correct_translation:
+                return redirect('page_slug', slug=correct_translation.slug)
+        if translation and language == LANGUAGE_CODE: 
+            original = models.Page.objects.get(id=translation.page_id)
+            return redirect('page_slug', slug=original.slug)
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
 
