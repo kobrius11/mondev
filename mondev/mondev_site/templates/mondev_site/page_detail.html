@@ -1,0 +1,18 @@
+{% extends 'base.html' %}{% load i18n %}
+{% block title %}{{ object.name }} | {{ block.super }}{% endblock title %}
+{% block content %}
+<h1>{{ object.name }}</h1>
+{{ object.content|safe }}
+<p class="small right">
+{% if object.is_public %}
+    {% trans "published" %}: {% if object.published_at %}{{ object.published_at }}{% else %}{{ object.created_at }}{% endif %}
+{% else %}
+    <span class="error">{% trans "not public"|upper %}</span>
+{% endif %}
+</p>
+<p class="small right">
+{% if user.is_superuser or user.is_staff %}
+    {% trans "created" %}: {{ object.created_at }}{% if object.created_at != object.updated_at %}, {% trans "edited" %}: {{ object.updated_at }}{% endif %}
+{% endif %}
+</p>
+{% endblock content %}

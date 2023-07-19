@@ -1,8 +1,9 @@
+from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from tinymce.models import HTMLField
-from academy.models import TimeTrackedModel, NamedModel
+from academy.models import NamedModel
 
 
 class Page(NamedModel):
@@ -15,3 +16,8 @@ class Page(NamedModel):
         if not self.slug and len(self.name) > 0:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
+
+
+class PageTranslation(Page):
+    page = models.ForeignKey(Page, verbose_name=_("page"), on_delete=models.CASCADE, related_name='translations')
+    language = models.CharField(_("language"), max_length=7, db_index=True, choices=settings.LANGUAGES)

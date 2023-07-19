@@ -1,0 +1,36 @@
+[
+{
+  "model": "mondev_site.page",
+  "pk": 1,
+  "fields": {
+    "created_at": "2023-07-05T12:05:54.682Z",
+    "updated_at": "2023-07-19T19:30:51.497Z",
+    "name": "Middle of Nowhere Dev Academy",
+    "slug": "welcome",
+    "content": "<h2>Welcome!</h2>\r\n<p>Soon here will start MoNDA - Middle of Nowhere Developer Academy</p>",
+    "published_at": "2023-07-07T04:07:07Z",
+    "is_public": true
+  }
+},
+{
+  "model": "mondev_site.page",
+  "pk": 2,
+  "fields": {
+    "created_at": "2023-07-19T19:00:25.919Z",
+    "updated_at": "2023-07-19T19:30:48.258Z",
+    "name": "Vidury Niekur Akademija Gyvai",
+    "slug": "sveiki",
+    "content": "<h2>Vidury Niekur Akademija Gyvai</h2>\r\n<p>Čia netrukus pradės veikti MoNDA.live programuotojų akademija.</p>",
+    "published_at": "2023-07-19T19:00:00Z",
+    "is_public": true
+  }
+},
+{
+  "model": "mondev_site.pagetranslation",
+  "pk": 2,
+  "fields": {
+    "page": 1,
+    "language": "lt"
+  }
+}
+]
