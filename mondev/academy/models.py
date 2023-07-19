@@ -6,7 +6,8 @@ from django.utils.translation import gettext_lazy as _
 from tinymce.models import HTMLField
 
 User = get_user_model()
-
+# TODO: move abstract models to monda_base app
+# TODO: refactor project to monda_live, mondev_ prefixes to monda_
 
 class TimeTrackedModel(models.Model):
     created_at = models.DateTimeField(_("created at"), auto_now_add=True, db_index=True)
