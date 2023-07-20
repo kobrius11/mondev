@@ -1,0 +1,51 @@
+version: '3.7'
+services:
+  monda:
+    build: 
+      context: .
+      args:
+        run_as: ${RUN_AS_USER}
+    image: python:monda
+    container_name: monda.live
+    tty: true
+    stdin_open: true
+    restart: always
+    ports:
+      - 8000:8000
+    volumes:
+      - ./monda_live:/app
+    depends_on:
+      - db
+    links:
+      - db:postgres
+    env_file:
+      - ./monda_live/monda/local_settings.py
+    user: "${RUN_AS_USER}:${RUN_AS_GROUP}"
+    command: >
+      bash -c "python wait_for_postgres.py &&
+               python manage.py migrate &&
+               python manage.py collectstatic --noinput &&
+               gunicorn monda.wsgi --bind 0.0.0.0:8000"
+  db:
+    image: postgres
+    container_name: monda.db
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - ./dbdata:/var/lib/postgresql/data
+    env_file:
+      - ./monda_live/monda/local_settings.py
+    # user: "${RUN_AS_USER}:${RUN_AS_GROUP}"
+  nginx:
+    build: ./nginx/.
+    image: nginx:monda
+    container_name: monda.nginx
+    restart: always
+    ports:
+      - 80:80
+    links:
+      - monda:monda
+    volumes:
+      - ./monda_live/media:/app/media
+      - ./monda_live/static:/app/static
