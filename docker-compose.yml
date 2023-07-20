@@ -54,3 +54,4 @@ services:
     volumes:
       - ./monda_live/media:/app/media
       - ./monda_live/static:/app/static
+    user: "${RUN_AS_USER}:${RUN_AS_GROUP}"
