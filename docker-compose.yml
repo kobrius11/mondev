@@ -12,6 +12,7 @@ services:
     restart: always
     ports:
       - 8000:8000
+    # user: "${RUN_AS_USER}:${RUN_AS_GROUP}"
     volumes:
       - ./monda_live:/app
     depends_on:
@@ -20,7 +21,6 @@ services:
       - db:postgres
     env_file:
       - ./monda_live/monda/local_settings.py
-    user: "${RUN_AS_USER}:${RUN_AS_GROUP}"
     command: >
       bash -c "python wait_for_postgres.py &&
                python manage.py migrate &&
@@ -51,7 +51,7 @@ services:
       - monda:monda
     depends_on:
       - monda
+    # user: "${RUN_AS_USER}:${RUN_AS_GROUP}"
     volumes:
       - ./monda_live/media:/app/media
       - ./monda_live/static:/app/static
-    user: "${RUN_AS_USER}:${RUN_AS_GROUP}"
