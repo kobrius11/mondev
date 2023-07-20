@@ -38,7 +38,10 @@ services:
       - ./monda_live/monda/local_settings.py
     # user: "${RUN_AS_USER}:${RUN_AS_GROUP}"
   nginx:
-    build: ./nginx/.
+    build: 
+      context: ./nginx/.
+      args:
+        run_as: ${RUN_AS_USER}
     image: nginx:monda
     container_name: monda.nginx
     restart: always
@@ -46,6 +49,8 @@ services:
       - 80:80
     links:
       - monda:monda
+    depends_on:
+      - monda
     volumes:
       - ./monda_live/media:/app/media
       - ./monda_live/static:/app/static
