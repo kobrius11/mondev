@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from tinymce.models import HTMLField
-from monda_base.models import CodeNamedModel, NamedModel, TimeTrackedModel
+from monda_base.models import CodeNamedModel, NamedModel, TimeTrackedModel, TranslatedModel
 
 User = get_user_model()
 # TODO: refactor project to monda_live, mondev_ prefixes to monda_
@@ -18,6 +18,10 @@ class Course(CodeNamedModel):
         verbose_name_plural = _("courses")
 
 
+class CourseTranslation(Course, TranslatedModel):
+    course = models.ForeignKey(Course, verbose_name=_("course"), on_delete=models.CASCADE, related_name='translations')
+
+
 class Topic(NamedModel):
     description = HTMLField(_("description"), blank=True, null=True)
     length = models.DurationField(_("Length"), default=timedelta(days=0, seconds=0))
@@ -25,6 +29,10 @@ class Topic(NamedModel):
     class Meta:
         verbose_name = _("topic")
         verbose_name_plural = _("topics")
+
+
+class TopicTranslation(Topic, TranslatedModel):
+    topic = models.ForeignKey(Topic, verbose_name=_("topic"), on_delete=models.CASCADE, related_name='translations')
 
 
 class CourseTopic(TimeTrackedModel):
@@ -92,3 +100,7 @@ class TopicMaterial(NamedModel):
         verbose_name = _("topic material")
         verbose_name_plural = _("topic materials")
         ordering = ('order', )
+
+
+class TopicMaterialTranslation(TopicMaterial, TranslatedModel):
+    topic_material = models.ForeignKey(TopicMaterial, verbose_name=_("topic material"), on_delete=models.CASCADE, related_name='trabslations')

@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from tinymce.models import HTMLField
-from monda_base.models import NamedModel
+from monda_base.models import NamedModel, TranslatedModel
 
 
 class Page(NamedModel):
@@ -18,6 +18,5 @@ class Page(NamedModel):
         super().save(*args, **kwargs)
 
 
-class PageTranslation(Page):
+class PageTranslation(Page, TranslatedModel):
     page = models.ForeignKey(Page, verbose_name=_("page"), on_delete=models.CASCADE, related_name='translations')
-    language = models.CharField(_("language"), max_length=7, db_index=True, choices=settings.LANGUAGES)

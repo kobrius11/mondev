@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -31,6 +32,13 @@ class NamedModel(TimeTrackedModel):
 
 class CodeNamedModel(NamedModel):
     code = models.SlugField(_("code"), max_length=7, db_index=True, null=True, blank=True)
+
+    class Meta:
+        abstract = True
+
+
+class TranslatedModel(models.Model):
+    language = models.CharField(_("language"), max_length=7, db_index=True, choices=settings.LANGUAGES)
 
     class Meta:
         abstract = True

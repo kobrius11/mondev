@@ -1,5 +1,6 @@
 from adminsortable2.admin import SortableAdminMixin
 from django.contrib import admin
+from monda_base.admin import TranslationAdmin
 from . import models
 
 
@@ -21,11 +22,18 @@ class CourseGroupMemberAdmin(admin.ModelAdmin):
     list_filter = ('course_group', 'is_student', 'is_lecturer', 'is_assistant', 'is_expert', 'is_recruiter')
 
 
-@admin.register(models.TopicMaterial)
 class TopicMaterialAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ('name', 'topic', 'order', 'file')
     list_filter = ('topic', )
 
 
+class TopicMaterialTranslationAdmin(TopicMaterialAdmin, TranslationAdmin):
+    pass
+
+
 admin.site.register(models.Course)
 admin.site.register(models.Topic)
+admin.site.register(models.CourseTranslation, TranslationAdmin)
+admin.site.register(models.TopicTranslation, TranslationAdmin)
+admin.site.register(models.TopicMaterial, TopicMaterialAdmin)
+admin.site.register(models.TopicMaterialTranslation, TopicMaterialTranslationAdmin)
