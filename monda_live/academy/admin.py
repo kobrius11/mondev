@@ -1,19 +1,19 @@
 from adminsortable2.admin import SortableAdminMixin
 from django.contrib import admin
-from monda_base.admin import TranslationAdmin, TranslatableAdmin, RelatedToTranslatedAdmin
+from monda_base.admin import TranslationAdmin, TranslatableAdmin, RelatedToTranslatedAdmin, TranslatableFilter
 from . import models
 
 
 @admin.register(models.CourseTopic)
 class CourseTopicAdmin(SortableAdminMixin, RelatedToTranslatedAdmin, admin.ModelAdmin):
     list_display = ('course', 'topic', 'order')
-    list_filter = ('course', )
+    list_filter = (('course', TranslatableFilter), )
 
 
 @admin.register(models.CourseGroup)
 class CourseGroupAdmin(RelatedToTranslatedAdmin, admin.ModelAdmin):
     list_display = ('name', 'code', 'starting_date', 'price')
-    list_filter = ('course', )
+    list_filter = (('course', TranslatableFilter), )
 
 
 @admin.register(models.CourseGroupMember)
@@ -24,7 +24,7 @@ class CourseGroupMemberAdmin(admin.ModelAdmin):
 
 class TopicMaterialAdmin(SortableAdminMixin, RelatedToTranslatedAdmin, admin.ModelAdmin):
     list_display = ('name', 'topic', 'order', 'file')
-    list_filter = ('topic', )
+    list_filter = (('topic', TranslatableFilter), )
 
 
 class TopicMaterialTranslationAdmin(TopicMaterialAdmin, TranslationAdmin):
