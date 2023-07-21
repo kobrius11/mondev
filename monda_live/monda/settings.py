@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "verify_email",
     'mondev_site',
     'user_profile',
     'academy',
@@ -175,3 +176,13 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ],
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = local_settings.EMAIL_ID
+EMAIL_HOST_PASSWORD = local_settings.EMAIL_PW
+DEFAULT_FROM_EMAIL = local_settings.DEFAULT_FROM_EMAIL
+LOGIN_URL = 'login'
+VERIFICATION_SUCCESS_TEMPLATE = None
