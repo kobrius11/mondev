@@ -49,11 +49,9 @@ class SignupView(FormView):
         user.is_active = False
         user.save()
 
-        if form.is_valid():
-            inactive_user = send_verification_email(self.request, form)
+        inactive_user = send_verification_email(self.request, form)
 
         messages.success(self.request, "User registration successful!")
-
         return super().form_valid(form)
 
     def form_invalid(self, form):
