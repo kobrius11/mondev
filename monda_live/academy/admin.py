@@ -31,8 +31,13 @@ class TopicMaterialTranslationAdmin(TopicMaterialAdmin, TranslationAdmin):
     pass
 
 
+class TopicAdmin(admin.ModelAdmin):
+    fields = ('name', 'description', 'length', 'id', )
+    readonly_fields = ('id', )
+
+
 admin.site.register(models.Course, TranslatableAdmin)
-admin.site.register(models.Topic, TranslatableAdmin)
+admin.site.register(models.Topic, TopicAdmin)
 admin.site.register(models.CourseTranslation, TranslationAdmin)
 admin.site.register(models.TopicTranslation, TranslationAdmin)
 admin.site.register(models.TopicMaterial, TopicMaterialAdmin)

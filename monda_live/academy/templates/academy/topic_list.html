@@ -1,0 +1,18 @@
+{% extends 'base.html' %}{% load i18n %}
+{% block content %}
+<h1>{{ course }}</h1>
+<p>{% trans "price"|title %}: {{ course.price }}</p>
+{{ course.description|safe }}
+
+{% if topic_list %}
+    <h2>{% trans "topics"|title %}</h2>
+    <ul class="content">
+        {% for topic in topic_list %}
+            <h3>{{ topic }} <span class="float-right small">&#8987; {{ topic.length }}</span></h3>
+            {{ topic.description|safe }}
+        {% endfor %}
+    </ul>
+{% endif %}
+
+{% endblock content %}
+

@@ -1,4 +1,4 @@
-from typing import Any, List
+from typing import Any
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Model
@@ -58,6 +58,6 @@ class TranslatedListView(generic.ListView):
             query_kwargs = {f"{translation_field_name}__isnull": True}
             queryset = queryset.filter(**query_kwargs)
         else:
-            translations = self.translation_model.objects.filter(language=language).values_list('pk')
+            translations = self.translation_model.objects.filter(language=language).values_list('pk', flat=True)
             queryset = queryset.filter(pk__in=translations)
         return queryset
