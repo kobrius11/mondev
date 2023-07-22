@@ -37,7 +37,7 @@ def profile_update(request):
     return render(request, 'user_profile/profile_update.html', {'user_form': user_form, 'profile_form': profile_form})
 
 
-# TODO: refactor to CBV form, also fix template: Done
+# TODO: refactor to CBV form, also fix template: Done, but need to recheck for bugs
 class SignupView(FormView):
     template_name = 'user_profile/signup.html'
     form_class = SignupForm
@@ -65,3 +65,4 @@ class SignupView(FormView):
             messages.info(self.request, 'In order to sign up, you need to logout first')
             return redirect('index')
         return super().dispatch(request, *args, **kwargs)
+    
