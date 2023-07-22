@@ -1,0 +1,13 @@
+{% extends 'base.html' %}{% load i18n %}
+{% block content %}
+<h1>{% trans "Courses available" %}</h1>
+{% if course_list %}
+<ul class="content">
+    {% for course in course_list %}
+    <li>{{ course }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p class="box">{% trans "We do not offer any courses yet. For more information please contact us or come back later." %}</p>
+{% endif %}
+{% endblock content %}

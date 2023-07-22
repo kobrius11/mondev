@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from django.views import generic
+from monda_base.views import TranslatedListView, TranslatedDetailView
+from . import models
 
-# Create your views here.
+
+class CourseListView(TranslatedListView):
+    model = models.Course
+    translation_model = models.CourseTranslation
+
