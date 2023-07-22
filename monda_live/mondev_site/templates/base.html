@@ -22,6 +22,7 @@
         <nav class="main">
             <span class="logo"><a href="{% url 'index' %}">MoNDA.live</a></span>
             <ul class="top-level-menu">
+                <li><a href="{% url 'course_list' %}">{% trans "courses"|title %}</a></li>
                 <span class="spacer"></span>
                 {% if request.user.is_authenticated %}
                     {% if request.user.is_superuser %}

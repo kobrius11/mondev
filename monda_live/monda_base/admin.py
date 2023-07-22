@@ -1,4 +1,4 @@
-from typing import Any, List, Optional, Sequence, Tuple
+from typing import Any, List, Sequence, Tuple
 from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
 from django.core.handlers.wsgi import WSGIRequest

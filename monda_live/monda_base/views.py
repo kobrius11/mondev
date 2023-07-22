@@ -1,7 +1,8 @@
-from typing import Any, Optional
+from typing import Any, List
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Model
+from django.db.models.query import QuerySet
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect, HttpResponsePermanentRedirect
 from django.shortcuts import redirect
 from django.views import generic
@@ -44,3 +45,19 @@ class TranslatedDetailView(generic.DetailView):
             return translated
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
+
+
+class TranslatedListView(generic.ListView):
+    translation_model:Model | None = None
+
+    def get_queryset(self) -> QuerySet[Any]:
+        language = get_language()
+        translation_field_name = f"{str(self.model.__name__).lower()}translation"
+        queryset = super().get_queryset()
+        if language == LANGUAGE_CODE or not self.translation_model:
+            query_kwargs = {f"{translation_field_name}__isnull": True}
+            queryset = queryset.filter(**query_kwargs)
+        else:
+            translations = self.translation_model.objects.filter(language=language).values_list('pk')
+            queryset = queryset.filter(pk__in=translations)
+        return queryset
