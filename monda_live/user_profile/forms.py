@@ -18,3 +18,25 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = models.Profile
         fields = ("picture",)
+
+
+class SignupForm(forms.ModelForm):
+    password_confirm = forms.CharField(widget=forms.PasswordInput)
+
+    class Meta:
+        model = User
+        fields = ("first_name", "last_name", "username", "email", "password")
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("This email is already in use. Please use a different email.")
+        return email
+
+    def clean_password_confirm(self):
+        password = self.cleaned_data.get('password')
+        password_confirm = self.cleaned_data.get('password_confirm')
+
+        if password and password_confirm and password != password_confirm:
+            raise forms.ValidationError("Password must match.")
+        return password_confirm

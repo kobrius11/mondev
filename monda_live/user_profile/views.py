@@ -3,8 +3,10 @@ from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_protect
-from . forms import ProfileUpdateForm, UserUpdateForm
-
+from . forms import ProfileUpdateForm, UserUpdateForm, SignupForm
+from django.views.generic import FormView
+from django.urls import reverse_lazy
+from verify_email.email_handler import send_verification_email
 
 User = get_user_model()
 
@@ -35,38 +37,30 @@ def profile_update(request):
     return render(request, 'user_profile/profile_update.html', {'user_form': user_form, 'profile_form': profile_form})
 
 
-# TODO: refactor to CBV form, also fix template
-@csrf_protect
-def signup(request):
-    if request.user.is_authenticated:
-        messages.info(request, 'In order to sign up, you need to logout first')
-        return redirect('index')
-    if request.method == "POST":
-        error = False
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        password_confirm = request.POST.get('password_confirm')
-        if not username or len(username) < 3 or User.objects.filter(username=username).exists():
-            error = True
-            messages.error(request, 'Username is too short or already exists.')
-        if not email or len(email) < 3 or User.objects.filter(email=email).exists():
-            error = True
-            messages.error(request, 'Email is invalid or user with this email already exists.')
-        if not password or not password_confirm or password != password_confirm or len(password) < 8:
-            error = True
-            messages.error(request, "Password must be at least 8 characters long and match.")
-        if not error:
-            user = User.objects.create(
-                username=username,
-                email=email,
-                first_name=first_name,
-                last_name=last_name,
-            )
-            user.set_password(password)
-            user.save()
-            messages.success(request, "User registration successful!")
-            return redirect('login')
-    return render(request, 'user_profile/signup.html')
+# TODO: refactor to CBV form, also fix template: Done, but need to recheck for bugs
+class SignupView(FormView):
+    template_name = 'user_profile/signup.html'
+    form_class = SignupForm
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.set_password(form.cleaned_data['password'])
+        user.is_active = False
+        user.save()
+
+        inactive_user = send_verification_email(self.request, form)
+
+        messages.success(self.request, "User registration successful!")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Error occurred during registration.")
+        return super().form_invalid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            messages.info(self.request, 'In order to sign up, you need to logout first')
+            return redirect('index')
+        return super().dispatch(request, *args, **kwargs)
+    
