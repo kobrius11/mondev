@@ -21,7 +21,9 @@ class ProfileUpdateForm(forms.ModelForm):
 
 
 class SignupForm(forms.ModelForm):
-    password_confirm = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(label=_('Password'), widget=forms.PasswordInput)
+    password_confirm = forms.CharField(label=_('Password confirm'), widget=forms.PasswordInput)
+
 
     class Meta:
         model = User

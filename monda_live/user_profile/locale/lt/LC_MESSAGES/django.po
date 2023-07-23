@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-23 17:49+0300\n"
+"POT-Creation-Date: 2023-07-23 18:18+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,19 @@ msgstr ""
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
 
-#: user_profile/forms.py:33
+#: user_profile/forms.py:24
+msgid "Password"
+msgstr "Slaptažodis"
+
+#: user_profile/forms.py:25
+msgid "Password confirm"
+msgstr "Pakartoti slaptažodį"
+
+#: user_profile/forms.py:35
 msgid "This email is already in use. Please use a different email."
 msgstr "Šis el. paštas naudojamas. Prašome pasirinkti kitą."
 
-#: user_profile/forms.py:41
+#: user_profile/forms.py:43
 msgid "Password must match."
 msgstr "Slaptažodžiai turi sutapti."
 
@@ -115,7 +123,8 @@ msgstr "atstatyti slaptažodį"
 
 #: user_profile/templates/registration/password_reset_confirm.html:12
 msgid "Password Reset Failed: the link has expired and is no longer valid."
-msgstr "Atsatyti Slaptažodį Nepavyko: nuoruda nebegalioja ir daugiau nebe veiksminga."
+msgstr ""
+"Atsatyti Slaptažodį Nepavyko: nuoruda nebegalioja ir daugiau nebe veiksminga."
 
 #: user_profile/templates/registration/password_reset_done.html:2
 #: user_profile/templates/registration/password_reset_form.html:2
@@ -175,15 +184,15 @@ msgstr "atnaujinti"
 
 #: user_profile/templates/user_profile/signup.html:2
 msgid "sign up for"
-msgstr "prisiregistruoti"
+msgstr "registruotis į"
 
 #: user_profile/templates/user_profile/signup.html:4
 msgid "Sign up for Middle of Nowhere Developer Academy"
-msgstr "Prisiregistruoti į Middle of Nowhere Developer Academy"
+msgstr "Registracija į Middle of Nowhere Developer Academy"
 
 #: user_profile/templates/user_profile/signup.html:8
 msgid "confirm sign up"
-msgstr "patvirtinti prisijungtimą"
+msgstr "patvirtinti registracija"
 
 #: user_profile/templates/user_profile/signup.html:9
 msgid "If you have already an account, please"
@@ -191,7 +200,7 @@ msgstr "Jeigu jau turitę paskyra, prašome"
 
 #: user_profile/views.py:33
 msgid "Profile updated."
-msgstr ""
+msgstr "Profilis atnaujintas"
 
 #: user_profile/views.py:54
 msgid "User registration successful!"
