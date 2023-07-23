@@ -1,0 +1,211 @@
+[
+{
+  "model": "academy.course",
+  "pk": 1,
+  "fields": {
+    "created_at": "2023-07-20T20:27:23.293Z",
+    "updated_at": "2023-07-22T16:24:21.597Z",
+    "name": "Programming Python",
+    "code": "py01",
+    "price": "1000.00",
+    "description": ""
+  }
+},
+{
+  "model": "academy.course",
+  "pk": 2,
+  "fields": {
+    "created_at": "2023-07-20T20:28:26.502Z",
+    "updated_at": "2023-07-22T16:24:33.954Z",
+    "name": "Programavimas Python",
+    "code": "py01",
+    "price": "1500.00",
+    "description": ""
+  }
+},
+{
+  "model": "academy.course",
+  "pk": 3,
+  "fields": {
+    "created_at": "2023-07-21T14:49:37.720Z",
+    "updated_at": "2023-07-22T16:24:25.487Z",
+    "name": "Databases with Python",
+    "code": "py02",
+    "price": "1000.00",
+    "description": ""
+  }
+},
+{
+  "model": "academy.course",
+  "pk": 4,
+  "fields": {
+    "created_at": "2023-07-21T14:56:44.486Z",
+    "updated_at": "2023-07-22T16:24:38.331Z",
+    "name": "Duomenų Bazės su Python",
+    "code": "py02",
+    "price": "1000.00",
+    "description": ""
+  }
+},
+{
+  "model": "academy.coursetranslation",
+  "pk": 2,
+  "fields": {
+    "language": "lt",
+    "course": 1
+  }
+},
+{
+  "model": "academy.coursetranslation",
+  "pk": 4,
+  "fields": {
+    "language": "lt",
+    "course": 3
+  }
+},
+{
+  "model": "academy.topic",
+  "pk": 1,
+  "fields": {
+    "created_at": "2023-07-20T20:29:15.259Z",
+    "updated_at": "2023-07-20T20:29:15.259Z",
+    "name": "Workspace",
+    "description": "",
+    "length": "04:00:00"
+  }
+},
+{
+  "model": "academy.topic",
+  "pk": 2,
+  "fields": {
+    "created_at": "2023-07-20T20:33:58.984Z",
+    "updated_at": "2023-07-20T20:33:58.984Z",
+    "name": "Code Structure",
+    "description": "",
+    "length": "02:00:00"
+  }
+},
+{
+  "model": "academy.topic",
+  "pk": 3,
+  "fields": {
+    "created_at": "2023-07-20T20:36:23.466Z",
+    "updated_at": "2023-07-20T20:36:23.466Z",
+    "name": "Variables",
+    "description": "",
+    "length": "03:00:00"
+  }
+},
+{
+  "model": "academy.topic",
+  "pk": 4,
+  "fields": {
+    "created_at": "2023-07-20T20:36:56.795Z",
+    "updated_at": "2023-07-20T20:36:56.795Z",
+    "name": "Darbo aplinka",
+    "description": "",
+    "length": "04:00:00"
+  }
+},
+{
+  "model": "academy.topic",
+  "pk": 5,
+  "fields": {
+    "created_at": "2023-07-20T20:37:30.004Z",
+    "updated_at": "2023-07-20T20:37:30.004Z",
+    "name": "Kodo struktūra",
+    "description": "",
+    "length": "01:00:00"
+  }
+},
+{
+  "model": "academy.topic",
+  "pk": 6,
+  "fields": {
+    "created_at": "2023-07-20T20:39:06.581Z",
+    "updated_at": "2023-07-20T20:39:06.581Z",
+    "name": "Kintamieji",
+    "description": "",
+    "length": "03:00:00"
+  }
+},
+{
+  "model": "academy.topic",
+  "pk": 7,
+  "fields": {
+    "created_at": "2023-07-22T17:15:38.347Z",
+    "updated_at": "2023-07-22T17:15:38.347Z",
+    "name": "Math Operators",
+    "description": "",
+    "length": "02:00:00"
+  }
+},
+{
+  "model": "academy.topictranslation",
+  "pk": 4,
+  "fields": {
+    "language": "lt",
+    "topic": 1
+  }
+},
+{
+  "model": "academy.topictranslation",
+  "pk": 5,
+  "fields": {
+    "language": "lt",
+    "topic": 2
+  }
+},
+{
+  "model": "academy.topictranslation",
+  "pk": 6,
+  "fields": {
+    "language": "lt",
+    "topic": 3
+  }
+},
+{
+  "model": "academy.coursetopic",
+  "pk": 1,
+  "fields": {
+    "created_at": "2023-07-20T20:35:01.865Z",
+    "updated_at": "2023-07-20T20:35:01.865Z",
+    "course": 1,
+    "topic": 1,
+    "order": 1
+  }
+},
+{
+  "model": "academy.coursetopic",
+  "pk": 2,
+  "fields": {
+    "created_at": "2023-07-20T20:35:10.601Z",
+    "updated_at": "2023-07-20T20:35:19.076Z",
+    "course": 1,
+    "topic": 2,
+    "order": 2
+  }
+},
+{
+  "model": "academy.coursetopic",
+  "pk": 3,
+  "fields": {
+    "created_at": "2023-07-20T20:36:25.889Z",
+    "updated_at": "2023-07-20T20:36:25.889Z",
+    "course": 1,
+    "topic": 3,
+    "order": 3
+  }
+},
+{
+  "model": "academy.coursetopic",
+  "pk": 4,
+  "fields": {
+    "created_at": "2023-07-22T17:15:52.618Z",
+    "updated_at": "2023-07-22T17:15:52.618Z",
+    "course": 1,
+    "topic": 7,
+    "order": 4
+  }
+}
+]
