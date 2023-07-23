@@ -133,8 +133,16 @@ aside.sidebar h2, aside.sidebar h3 {
     color: rgba(0, 0, 0, 0.5);
 }
 
+.strike {
+    text-decoration: line-through;
+}
+
 .spacer {
     flex-grow: 1;
+}
+
+.w100 {
+    width: 100%;
 }
 
 form p label {

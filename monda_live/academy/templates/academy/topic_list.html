@@ -1,7 +1,9 @@
 {% extends 'base.html' %}{% load i18n %}
 {% block content %}
 <h1>{{ course }}</h1>
-<p>{% trans "price"|title %}: {{ course.price }}</p>
+<p>{% trans "price"|title %}: {{ course.price }} &euro;
+    <a href="{% url 'coursegroup_list' course.code %}" class="btn btn-success">{% trans "enrollment" %}</a>
+</p>
 {{ course.description|safe }}
 
 {% if topic_list %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}{% load i18n %}
+{% block content %}
+<h1>{{ course }} {% trans "groups" %}</h1>
+{% if coursegroup_list %}
+    <p>{% blocktrans %}
+        You can apply to enroll into the following open groups. 
+        You need to be logged in to do so. If you do not have an 
+        account, you can sign up for free
+    {% endblocktrans %}<a href="{% url 'signup' %}">{% trans "here" %}</a>.</p>
+    <table class="w100">
+        <tr>
+            <th>{% trans "group"|capfirst %}</th>
+            <th>{% trans "starts"|capfirst %}</th>
+            <th>{% trans "weekly intensity"|capfirst %}</th>
+            <th>{% trans "price"|capfirst %}</th>
+            <th>{% trans "actions"|capfirst %}</th>
+        </tr>
+        {% for group in coursegroup_list %}
+            <tr>
+                <td class="text-center">{{ group }} ({{ group.code }})</td>
+                <td class="text-center">{{ group.starting_date }}</td>
+                <td class="text-center">{{ group.days_per_week }} {% trans "days" %}
+                  / {{ group.hours_per_day }} {% trans "hours" %}
+                </td>
+                <td class="text-right">
+                    {% if group.price != course.price %}<span class="strike dim">{{ course.price }} &euro;</span>{% endif %}
+                    {{ group.price }} &euro;
+                </td>
+                <td class="text-center">
+                    {% if group.can_enroll %}
+                        <a class="btn">{% trans "enroll"|upper %}</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    {% trans "There are no groups provisioned for this course at this moment." %}
+{% endif %}
+{% endblock content %}

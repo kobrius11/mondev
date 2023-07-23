@@ -2,6 +2,7 @@ from datetime import timedelta
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 from tinymce.models import HTMLField
 from monda_base.models import CodeNamedModel, NamedModel, TimeTrackedModel, TranslatedModel
 
@@ -51,8 +52,11 @@ class CourseTopic(TimeTrackedModel):
 
 class CourseGroup(CodeNamedModel):
     course = models.ForeignKey(Course, verbose_name=_("course"), on_delete=models.CASCADE, related_name='groups')
-    starting_date = models.DateField(_("starting date"), null=True, blank=True, db_index=True)
     price = models.DecimalField(_("price"), max_digits=18, decimal_places=2, default=0)
+    starting_date = models.DateField(_("starting date"), null=True, blank=True, db_index=True)
+    graduation_date = models.DateField(_("graduation date"), null=True, blank=True, db_index=True)
+    days_per_week = models.PositiveSmallIntegerField(_("days per week"), default=5)
+    hours_per_day = models.PositiveSmallIntegerField(_("hours per day"), default=6)
 
     class Meta:
         verbose_name = _("course group")
@@ -63,6 +67,12 @@ class CourseGroup(CodeNamedModel):
         if self.price == 0 and self.course.price > 0:
             self.price = self.course.price
         super().save(*args, **kwargs)
+
+    @property
+    def can_enroll(self):
+        print(self.starting_date - timezone.datetime.date(timezone.datetime.today()))
+        if self.starting_date - timezone.datetime.date(timezone.datetime.today()) > timedelta(days=1):
+            return True
 
 
 class CourseGroupMember(TimeTrackedModel):
