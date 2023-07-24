@@ -33,7 +33,7 @@ msgstr "paskelbta"
 
 #: mondev_site/models.py:13
 msgid "publicly available"
-msgstr "viešai galimi"
+msgstr "viešai prieinami"
 
 #: mondev_site/models.py:22
 msgid "page"
@@ -57,7 +57,7 @@ msgstr "prisijungti"
 
 #: mondev_site/templates/base.html:35
 msgid "sing up"
-msgstr "registruotis"
+msgstr "užsiregistruoti"
 
 #: mondev_site/templates/base.html:54
 msgid "hide"
@@ -77,7 +77,7 @@ msgstr "privatus"
 
 #: mondev_site/templates/mondev_site/page_detail.html:15
 msgid "created"
-msgstr "sukūrtas"
+msgstr "sukurtas"
 
 #: mondev_site/templates/mondev_site/page_detail.html:15
 msgid "edited"
