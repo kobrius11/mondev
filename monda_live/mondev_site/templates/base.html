@@ -32,7 +32,7 @@
                     <li><a href="{% url 'logout' %}">{% trans "log out"|capfirst %}</a></li>
                 {% else %}
                     <li><a href="{% url 'login' %}">{% trans "log in"|capfirst %}</a></li>
-                    <li><a href="{% url 'signup' %}">{% trans "sing up"|capfirst %}</a></li>
+                    <li><a href="{% url 'signup' %}">{% trans "sign up"|capfirst %}</a></li>
                 {% endif %}
                 <form action="{% url 'set_language' %}" method="post">
                     {% csrf_token %}
@@ -50,6 +50,7 @@
     </header>
     <main>
     {% block complex_content %}
+        {% block complex_sidebar %}
         <aside class="sidebar">
             <a class="btn dim text-right {% if request.session.sidebar_state %}block{% else %}hidden{% endif %}" id="sidebar-collapse" onclick="monda_collapse('sidebar');">{% trans "hide"|lower %} &#171;</a>
             <a class="btn dim {% if request.session.sidebar_state %}hidden{% else %}block{% endif %}" id="sidebar-uncollapse" onclick="monda_uncollapse('sidebar');">&#187;</a>
@@ -57,6 +58,7 @@
                 <h3>{% trans "your courses"|title %}</h3>
             {% endblock sidebar %}</div>
         </aside>
+        {% endblock complex_sidebar %}
         <div class="container">
             {% block messages %}
                 {% if messages %}{% for message in messages %}

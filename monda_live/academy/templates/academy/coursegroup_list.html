@@ -28,7 +28,7 @@
                 </td>
                 <td class="text-center">
                     {% if group.can_enroll %}
-                        <a class="btn">{% trans "enroll"|upper %}</a>
+                        <a class="btn" href="{% url 'coursegroupmember_create' course.code group.code %}">{% trans "enroll"|upper %}</a>
                     {% endif %}
                 </td>
             </tr>
