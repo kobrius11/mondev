@@ -1,0 +1,21 @@
+{% extends 'base.html' %}{% load i18n %}
+{% block content %}
+<h1>{% trans "enroll to"|capfirst %} {{ course_group.name }}</h1>
+{% blocktrans %}<p>
+Thank you for the interest in MoNDA.live course. Please fill in
+this small form below. In the background section, please describe
+your professional background, and confirm that you meet the minimum
+personal maturity requirements and agree to MoNDA terms and 
+conditions and code of conduct.</p>
+<p>If you want to be sponsored, you can select "Sponsored Scholarship"
+and name your scholarship provider. For example, if you are in a 
+labour market in Lithuania, you can ask the scholarship from UŽT 
+(Užimtumo Tarnyba).
+</p>{% endblocktrans %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p>{% trans "The application is legally binding." %}</p>
+    <button class="btn" type="submit">{% trans "enroll"|capfirst %}</button>
+</form>
+{% endblock content %}

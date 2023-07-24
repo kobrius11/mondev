@@ -166,7 +166,7 @@ h1 {
 
 .box {
     margin: 0.25rem 0;
-    padding: 0,75rem 1rem;
+    padding: 1rem;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
     border: 1px solid #666666;
     background: #bbbbbb;
@@ -175,4 +175,13 @@ h1 {
 
 .user-profile-picture {
     max-height: 20vh;
+}
+
+table tr th, table tr td {
+    padding: 0.25rem;
+    border-bottom: 1px dotted #666666;
+}
+
+table tr:hover {
+    background-color: rgba(255, 255, 255, 0.3);
 }
