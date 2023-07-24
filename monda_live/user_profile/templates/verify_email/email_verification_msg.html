@@ -1,0 +1,23 @@
+{% extends 'base_email.html' %}
+
+{% block title %} Please verify your email {% endblock title %}
+{% block content %}
+    <style>
+    </style>
+    <p>Hi user, <br>
+        Welcome to MoNDA!<br>
+        Please click the button below to verify your email address.<br>
+        if you did not sign up to MoNDA, please ignore this email or contact us at xxxxxx@monda.email<br>
+        <br>
+        Random Name<br>
+        MoNDA Support Team<br></p>
+    <div class="div" style="text-align: center;
+                margin-top: 3%;">
+        <a class="button" style="border: 2px solid black;
+                    background-color: #EEBE13;
+                    padding: 1% 3%;
+                    text-align: center;
+                    text-decoration: none;
+                    color: black;" href="{{ link }}">Verify Email</a>
+    </div>
+{% endblock content %}

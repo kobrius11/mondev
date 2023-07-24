@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_protect
 from . forms import ProfileUpdateForm, UserUpdateForm, SignupForm
-from django.views.generic import FormView
+from django.views.generic import FormView, TemplateView
 from django.urls import reverse_lazy
 from verify_email.email_handler import send_verification_email
 
@@ -51,7 +51,7 @@ class SignupView(FormView):
 
         inactive_user = send_verification_email(self.request, form)
 
-        messages.success(self.request, "User registration successful!")
+        messages.success(self.request, "User registration successful! Please check your email.")
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -63,4 +63,12 @@ class SignupView(FormView):
             messages.info(self.request, 'In order to sign up, you need to logout first')
             return redirect('index')
         return super().dispatch(request, *args, **kwargs)
+    
+class EmailTemplateView(TemplateView):
+    template_name = 'verify_email/email_verification_msg.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["link"] = self.request.path
+        return context
     
