@@ -5,13 +5,15 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-image: url("/static/mondev_site/images/background.png");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 main {
     display: flex;
     flex-direction: row;
     flex-grow: 1;
-    background-color: #cccccc;
     padding-top: 5rem;
 }
 
@@ -77,6 +79,42 @@ footer {
     padding: 0 0.5rem;
 }
 
+/* Style for the container holding the list */
+ul.content {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Style for each list item */
+ul.content li {
+    margin: 0.1rem 0;
+    font-size: 1rem;
+    background-color: #e0e0e0;
+    transition: background-color 0.1s ease-in-out;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.1rem;
+    box-shadow: 0 2px 5px #666666;
+}
+
+/* Style for list items on hover */
+ul.content li:hover {
+    background-color: #afafaf;
+}
+
+/* Style for normal links within list items */
+ul.content li a {
+    color: #474747;
+    text-decoration: none;
+}
+  
+/* Style for links on hover within list items */
+ul.content li a:hover {
+    color: #181818;
+    text-decoration: none;
+}
+
 aside.sidebar {
     background-color: #aaaaaa;
     border-right: 1px solid #cccccc;
@@ -96,10 +134,13 @@ aside.sidebar h2, aside.sidebar h3 {
 
 .block {
     display: block;
+    transition: all 200ms ease-in;
+    opacity: 1;
 }
 
 .hidden {
     display: none;
+    opacity: 0;
 }
 
 .float-right {
@@ -151,6 +192,11 @@ form p label {
     border-bottom: 1px dotted #666666;
 }
 
+p a {
+    text-decoration: none;
+    color: #444444;
+}
+
 h1, h2, h3, h4 {
     background: #bbbbbb;
     background: linear-gradient(0deg, #aaaaaa 0%, #dddddd 80%, #ffffff 100%);
@@ -158,7 +204,6 @@ h1, h2, h3, h4 {
     padding: 0.5rem 1rem;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 }
-
 h1 {
     background: linear-gradient(0deg, #bbbbbb 0%, #eeeeee 80%, #ffffff 100%);
     border-bottom: 3px solid #ffcc00;
@@ -171,6 +216,24 @@ h1 {
     border: 1px solid #666666;
     background: #bbbbbb;
     background: linear-gradient(0deg, #aaaaaa 0%, #dddddd 80%, #ffffff 100%);
+}
+
+.box-success {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #357936;
+}
+
+.box-error {
+    background-color: #f2dede;
+    border-color: #cf7676;
+    color: #ac3e3c;
+}
+
+.box-info {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+    color: #31708f;
 }
 
 .user-profile-picture {
