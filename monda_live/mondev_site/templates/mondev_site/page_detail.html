@@ -5,14 +5,14 @@
 {{ object.content|safe }}
 <p class="small right">
 {% if object.is_public %}
-    {% trans "published" %}: {% if object.published_at %}{{ object.published_at }}{% else %}{{ object.created_at }}{% endif %}
+    {% trans "published"|capfirst %}: {% if object.published_at %}{{ object.published_at }}{% else %}{{ object.created_at }}{% endif %}
 {% else %}
     <span class="error">{% trans "not public"|upper %}</span>
 {% endif %}
 </p>
 <p class="small right">
 {% if user.is_superuser or user.is_staff %}
-    {% trans "created" %}: {{ object.created_at }}{% if object.created_at != object.updated_at %}, {% trans "edited" %}: {{ object.updated_at }}{% endif %}
+    {% trans "created"|capfirst %}: {{ object.created_at }}{% if object.created_at != object.updated_at %}, {% trans "edited"|capfirst %}: {{ object.updated_at }}{% endif %}
 {% endif %}
 </p>
 {% endblock content %}

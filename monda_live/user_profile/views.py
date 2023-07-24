@@ -7,6 +7,7 @@ from . forms import ProfileUpdateForm, UserUpdateForm, SignupForm
 from django.views.generic import FormView, TemplateView
 from django.urls import reverse_lazy
 from verify_email.email_handler import send_verification_email
+from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
 
@@ -29,7 +30,7 @@ def profile_update(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, "Profile updated.")
+            messages.success(request, _("Profile updated."))
             return redirect('profile')
     else:
         user_form = UserUpdateForm(instance=request.user)
@@ -37,7 +38,6 @@ def profile_update(request):
     return render(request, 'user_profile/profile_update.html', {'user_form': user_form, 'profile_form': profile_form})
 
 
-# TODO: refactor to CBV form, also fix template: Done, but need to recheck for bugs
 class SignupView(FormView):
     template_name = 'user_profile/signup.html'
     form_class = SignupForm
@@ -51,16 +51,20 @@ class SignupView(FormView):
 
         inactive_user = send_verification_email(self.request, form)
 
+<<<<<<< HEAD
         messages.success(self.request, "User registration successful! Please check your email.")
+=======
+        messages.success(self.request, _("User registration successful!"))
+>>>>>>> efb4d822fe01c7773bcdbe6b426adfb603e153e9
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, "Error occurred during registration.")
+        messages.error(self.request, _("Error occurred during registration."))
         return super().form_invalid(form)
 
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_authenticated:
-            messages.info(self.request, 'In order to sign up, you need to logout first')
+            messages.info(self.request, _('In order to sign up, you need to logout first'))
             return redirect('index')
         return super().dispatch(request, *args, **kwargs)
     
