@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .body {
+                font-family: sans-serif;
+                background: linear-gradient(
+                    180deg, rgba(0, 0, 0, 0.92) 0%, 
+                    rgba(4, 4, 0, 0.88) 83.21%, 
+                    rgba(4, 3, 0, 0.69) 93.45%, 
+                    rgba(14, 7, 0, 0.46) 100%
+                );
+                padding-top: 5%;
+                width: 40vw;
+            }
+            .container {
+                margin: auto;
+                text-align: center;
+                background: rgba(255, 248, 248, 0.91);
+                border-radius: 40px 40px 0px 0px;
+                border-top: 4px solid gold;
+                width: 80%;
+            }
+            .main-title {
+                margin-top: 2%;
+                font-size: xx-large;
+                color: black;
+                font-weight: bold;
+            }
+            .main {
+                text-align: left;
+                padding: 5%;
+                margin-top: 2%;
+                font-size: medium;
+                color: black;
+            }
+            .footer {
+                width: 100%;
+                text-align: left;
+                margin: 10% 0 0 0;
+                background-color: #CDCBCB;
+            }
+            .footer p {
+                padding: 2% 5%;
+            }
+        </style>
+    </head>
+    <body class="body">
+        <div class="container">
+            <img class="MacbookMail" style="width: 60%; 
+                                            height: 40%; 
+                                            margin-top: 73px;" 
+                src="https://via.placeholder.com/614x205">
+            <div class="main-title">
+                {% block title %}
+                {% endblock title %}            
+            </div>
+            <div class="main">     
+                {% block content %}
+                {% endblock content %}
+            </div>
+            <div class="footer">
+                <p style="font-weight: bold;">Need Support ?</p>
+                <p>Feel free to email us if you have any question, comments or suggestions. We`ll be happy to resolve your issues.</p>
+            </div>
+        </div>
+    </body>
+</html>
