@@ -2,6 +2,7 @@ from datetime import timedelta
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
 from tinymce.models import HTMLField
 from monda_base.models import CodeNamedModel, NamedModel, TimeTrackedModel, TranslatedModel
 
@@ -51,8 +52,11 @@ class CourseTopic(TimeTrackedModel):
 
 class CourseGroup(CodeNamedModel):
     course = models.ForeignKey(Course, verbose_name=_("course"), on_delete=models.CASCADE, related_name='groups')
-    starting_date = models.DateField(_("starting date"), null=True, blank=True, db_index=True)
     price = models.DecimalField(_("price"), max_digits=18, decimal_places=2, default=0)
+    starting_date = models.DateField(_("starting date"), null=True, blank=True, db_index=True)
+    graduation_date = models.DateField(_("graduation date"), null=True, blank=True, db_index=True)
+    days_per_week = models.PositiveSmallIntegerField(_("days per week"), default=5)
+    hours_per_day = models.PositiveSmallIntegerField(_("hours per day"), default=6)
 
     class Meta:
         verbose_name = _("course group")
@@ -64,17 +68,42 @@ class CourseGroup(CodeNamedModel):
             self.price = self.course.price
         super().save(*args, **kwargs)
 
+    @property
+    def can_enroll(self):
+        if self.starting_date - timezone.datetime.date(timezone.datetime.today()) > timedelta(days=1):
+            return True
+
 
 class CourseGroupMember(TimeTrackedModel):
+    PAYMENT_CHOICES = (
+        ('pre_kevin', _("Prepaid Kevin")),
+        ('pre_stripe', _("Prepaid Stripe")),
+        ('plan_kevin', _("Payment Plan")),
+        ('sponsored', _("Sponsored Scholarship")),
+    )
+
     user = models.ForeignKey(User, verbose_name=_("user"), on_delete=models.CASCADE, related_name='course_groups')
     course_group = models.ForeignKey(CourseGroup, verbose_name=_("course group"), on_delete=models.CASCADE, related_name='students')
     price = models.DecimalField(_("price"), max_digits=18, decimal_places=2, default=0)
     paid = models.DecimalField(_("paid"), max_digits=18, decimal_places=2, default=0)
+    payment_method = models.CharField(_("payment method"), max_length=15, choices=PAYMENT_CHOICES, default='pre_kevin')
+    scholarship_sponsor = models.CharField(_("scholarship sponsor"), max_length=63, null=True, blank=True)
     is_student = models.BooleanField(_("student"), default=True)
     is_lecturer = models.BooleanField(_("lecturer"), default=False)
     is_assistant = models.BooleanField(_("assistant"), default=False)
     is_expert = models.BooleanField(_("expert"), default=False)
     is_recruiter = models.BooleanField(_("recruiter"), default=False)
+    contract_url = models.URLField(_("contract url"), max_length=250, null=True, blank=True)
+    user_accepted_contract_at = models.DateTimeField(_("user accepted contract at"), null=True, blank=True)
+    academy_accepted_contract_at = models.DateTimeField(_("academy accepted contract at"), null=True, blank=True)
+    academy_representative = models.ForeignKey(
+        User, 
+        verbose_name=_("academy representative"), 
+        on_delete=models.SET_NULL, 
+        related_name='accepted_course_members', 
+        null=True, blank=True
+    )
+    background = models.TextField(_("background"), null=True, blank=True)
 
     class Meta:
         verbose_name = _("course group member")

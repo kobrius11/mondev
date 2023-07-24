@@ -1,5 +1,9 @@
 @media screen and (max-width: 768px) {
     .container {
         margin: 0;
+        width: calc(100% - 2rem);
+    }
+    main {
+        overflow-x: hidden;
     }
 }
