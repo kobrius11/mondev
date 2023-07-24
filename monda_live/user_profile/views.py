@@ -51,11 +51,7 @@ class SignupView(FormView):
 
         inactive_user = send_verification_email(self.request, form)
 
-<<<<<<< HEAD
-        messages.success(self.request, "User registration successful! Please check your email.")
-=======
         messages.success(self.request, _("User registration successful!"))
->>>>>>> efb4d822fe01c7773bcdbe6b426adfb603e153e9
         return super().form_valid(form)
 
     def form_invalid(self, form):
