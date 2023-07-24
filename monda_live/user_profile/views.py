@@ -41,7 +41,7 @@ def profile_update(request):
 class SignupView(FormView):
     template_name = 'user_profile/signup.html'
     form_class = SignupForm
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('page_slug', kwargs={'slug': 'user_registration_successful'})
 
     def form_valid(self, form):
         user = form.save(commit=False)
