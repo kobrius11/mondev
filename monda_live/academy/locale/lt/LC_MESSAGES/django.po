@@ -150,7 +150,7 @@ msgid ""
 "come back later."
 msgstr ""
 "Šiuo metu neteikiame jokių kursų. Norėdami gauti daugiau informacijos, "
-"susisiekite su mumis arba sugrįžk vėliau."
+"susisiekite su mumis arba sugrįžkite vėliau."
 
 #: academy/templates/academy/coursegroup_list.html:3
 msgid "groups"
