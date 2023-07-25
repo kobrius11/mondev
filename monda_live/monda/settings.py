@@ -184,7 +184,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = local_settings.EMAIL_ID
 EMAIL_HOST_PASSWORD = local_settings.EMAIL_PW
 DEFAULT_FROM_EMAIL = local_settings.DEFAULT_FROM_EMAIL
-LOGIN_URL = 'login'
+LOGIN_URL = '/accounts/login/'
 
 VERIFICATION_SUCCESS_TEMPLATE = 'verify_email/email_verification_successful.html'
 VERIFICATION_FAILED_TEMPLATE = 'verify_email/email_verification_failed.html'
