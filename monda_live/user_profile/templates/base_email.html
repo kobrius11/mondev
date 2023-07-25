@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% load static i18n %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            .body {
+                font-family: sans-serif;
+                background: linear-gradient(
+                    180deg, rgba(0, 0, 0, 0.92) 0%, 
+                    rgba(4, 4, 0, 0.88) 83.21%, 
+                    rgba(4, 3, 0, 0.69) 93.45%, 
+                    rgba(14, 7, 0, 0.46) 100%
+                );
+                padding-top: 5%;
+                width: 40vw;
+            }
+            @media only screen and (max-width: 1081px) {
+                .body {
+                    width: 100vw;
+                }
+            }
+            .container {
+                margin: auto;
+                text-align: center;
+                background: rgba(255, 248, 248, 0.91);
+                border-radius: 40px 40px 0px 0px;
+                border-top: 4px solid gold;
+                width: 80%;
+            }
+            .main {
+                text-align: left;
+                padding: 1rem;
+                margin-top: 1rem;
+                font-size: medium;
+                color: black;
+            }
+            .footer {
+                display: flex;
+                width: 100%;
+                text-align: left;
+                margin: 2rem 0 0 0;
+                background-color: #CDCBCB;
+            }
+            .footer-text {
+                width: 60%;
+                border-right: 2px solid black;  
+            }
+            .footer-text p {
+                padding: 0 1rem;
+            }
+            .footer-buttons {
+                margin-left: 2rem;
+                margin-top: 2rem;
+            }
+        </style>
+    </head>
+    <body class="body">
+        <div class="container">
+            {% block image %}
+            {% endblock image %}
+            <div class="main">
+                {% block title %}
+                {% endblock title %}    
+                {% block content %}
+                {% endblock content %}
+            </div>
+            <div class="footer">
+                <div class="footer-text">
+                    <p style="font-weight: bold;">{% trans "Support" %}?</p>
+                    <p>{% trans "feel free to email us if you have any question, comments or suggestions."|capfirst %}<br>{% trans "we`ll be happy to resolve your issues."|capfirst %}</p>
+                </div>
+                <div class="footer-buttons">
+                    <a href="https://www.youtube.com/">
+                        <img style="width: 48px;
+                                    height: 48px;"
+                                    src="https://cdn-icons-png.flaticon.com/128/174/174883.png"
+                                    alt="Logo" title="Youtube" style="display:block"></a>
+                    <a href="https://www.linkedin.com/">
+                        <img style="width: 48px;
+                                    height: 48px;"
+                                    src="https://cdn-icons-png.flaticon.com/128/3536/3536505.png"
+                                    alt="Logo" title="LinkedIn" style="display:block"></a>
+                    <a href="https://twitter.com/">
+                        <img style="width: 48px;
+                                    height: 48px;"
+                                    src="https://cdn-icons-png.flaticon.com/128/733/733579.png"
+                                    alt="Logo" title="Twitter" style="display:block"></a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

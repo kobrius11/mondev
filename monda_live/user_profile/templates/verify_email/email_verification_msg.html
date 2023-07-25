@@ -1,0 +1,25 @@
+{% extends 'base_email.html' %}
+
+{% block image %}<img style="width: 200px;
+                            height: 175px; 
+                            margin-top: 73px;" 
+                            src="https://cdn-icons-png.flaticon.com/128/3296/3296464.png">{% endblock image %}
+{% block title %}<h1> {% trans "please verify your email"|capfirst %} </h1>{% endblock title %}
+{% block content %}
+    <p>{% trans "hi"|capfirst %} {{ inactive_user }}, <br>
+        {% trans "welcome to"|capfirst %} MoNDA!<br>
+        {% trans "please click the button below to verify your email address."|capfirst %}<br>
+        {% trans "if you did not sign up to MoNDA, please ignore this email or contact us at"|capfirst %} xxxxxx@monda.email<br>
+        <br>
+        Random Name<br>
+        MoNDA {% trans "support team"|title %}<br></p>
+    <div style="text-align: center;
+                margin-top: 3%;">
+        <a style="border: 2px solid black;
+                    background-color: #EEBE13;
+                    padding: 1% 3%;
+                    text-align: center;
+                    text-decoration: none;
+                    color: black;" href="{{ link }}">{% trans "verify email"|title %}</a>
+    </div>
+{% endblock content %}
