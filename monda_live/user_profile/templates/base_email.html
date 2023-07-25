@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{% load static %}
+{% load static i18n %}
 <html>
     <head>
         <meta charset="UTF-8">
@@ -51,8 +51,8 @@
                 padding: 0 1rem;
             }
             .footer-buttons {
-               margin-left: 2rem;
-               margin-top: 2rem;
+                margin-left: 2rem;
+                margin-top: 2rem;
             }
         </style>
     </head>
@@ -68,21 +68,21 @@
             </div>
             <div class="footer">
                 <div class="footer-text">
-                    <p style="font-weight: bold;">Need Support ?</p>
-                    <p>Feel free to email us if you have any question, comments or suggestions.<br> We`ll be happy to resolve your issues.</p>
+                    <p style="font-weight: bold;">{% trans "Support" %}?</p>
+                    <p>{% trans "feel free to email us if you have any question, comments or suggestions."|capfirst %}<br>{% trans "we`ll be happy to resolve your issues."|capfirst %}</p>
                 </div>
                 <div class="footer-buttons">
-                    <a class="button-round" href="https://www.youtube.com/">
+                    <a href="https://www.youtube.com/">
                         <img style="width: 48px;
                                     height: 48px;"
                                     src="https://cdn-icons-png.flaticon.com/128/174/174883.png"
                                     alt="Logo" title="Youtube" style="display:block"></a>
-                    <a class="button-round" href="https://www.linkedin.com/">
+                    <a href="https://www.linkedin.com/">
                         <img style="width: 48px;
                                     height: 48px;"
                                     src="https://cdn-icons-png.flaticon.com/128/3536/3536505.png"
                                     alt="Logo" title="LinkedIn" style="display:block"></a>
-                    <a class="button-round" href="https://twitter.com/">
+                    <a href="https://twitter.com/">
                         <img style="width: 48px;
                                     height: 48px;"
                                     src="https://cdn-icons-png.flaticon.com/128/733/733579.png"
