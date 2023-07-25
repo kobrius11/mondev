@@ -248,3 +248,21 @@ table tr th, table tr td {
 table tr:hover {
     background-color: rgba(255, 255, 255, 0.3);
 }
+
+select.language {
+    margin-top: 5px;
+    padding: 2px;
+    width: 100px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    color: #333;
+    background-color: #cfcfcf;
+    cursor: pointer;
+}
+
+select.language option {
+    padding: 4px;
+    background-color: rgb(97, 97, 97);
+    color: #fff;
+    font-size: 0.9rem;
+}
