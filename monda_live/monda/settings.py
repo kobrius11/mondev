@@ -177,15 +177,19 @@ REST_FRAMEWORK = {
     ],
 }
 
+# Email config
+# https://pypi.org/project/Django-Verify-Email/
+
+SUBJECT = 'Welcome to Middle of Nowhere!'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = local_settings.EMAIL_ID
 EMAIL_HOST_PASSWORD = local_settings.EMAIL_PW
-DEFAULT_FROM_EMAIL = local_settings.DEFAULT_FROM_EMAIL
+DEFAULT_FROM_EMAIL = local_settings.DEFAULT_FROM_EMAIL # no_reply@MoNDA.live
 LOGIN_URL = 'login'
-EXPIRE_AFTER = '2m' # email expires after 2 minutes
+EXPIRE_AFTER = '2m' # email expires after 2 minutes, MAX_RETRIES = 2(default)
 
 VERIFICATION_SUCCESS_MSG = """Your Email is verified successfully and account has been activated.
 You can login with the credentials now..."""
