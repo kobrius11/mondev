@@ -66,7 +66,7 @@ class SignupView(FormView):
         return super().dispatch(request, *args, **kwargs)
     
 class EmailTemplateView(TemplateView):
-    template_name = 'verify_email/email_verification_failed.html'
+    template_name = 'verify_email/link_expired.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

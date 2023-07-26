@@ -185,8 +185,7 @@ EMAIL_HOST_USER = local_settings.EMAIL_ID
 EMAIL_HOST_PASSWORD = local_settings.EMAIL_PW
 DEFAULT_FROM_EMAIL = local_settings.DEFAULT_FROM_EMAIL
 LOGIN_URL = 'login'
+EXPIRE_AFTER = '2m' # email expires after 2 minutes
 
-
-# VERIFICATION_FAILED_TEMPLATE = 'verify_email/email_verification_failed.html'
 VERIFICATION_SUCCESS_MSG = """Your Email is verified successfully and account has been activated.
 You can login with the credentials now..."""
