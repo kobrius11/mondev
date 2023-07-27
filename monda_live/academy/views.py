@@ -61,7 +61,7 @@ class CourseGroupListView(CourseRelatedMixin, generic.ListView):
     model = models.CourseGroup
 
 
-class CourseEnrollmentView(UserPassesTestMixin, CourseRelatedMixin, generic.CreateView):
+class CourseGroupEnrollmentView(UserPassesTestMixin, CourseRelatedMixin, generic.CreateView):
     model = models.CourseGroupMember
     form_class = forms.CourseGroupMemberCreateForm
     permission_denied_message = _('You must be already logged in and have not yet applied to the same group. If you have already applied, we will send you an email with further instructions.')
@@ -95,4 +95,28 @@ class CourseEnrollmentView(UserPassesTestMixin, CourseRelatedMixin, generic.Crea
                 'course_group': self.course_group,
                 'student': self.object,
             })
+        return reverse('coursegroup_list', kwargs={'course_code':self.course_group.course.code})
+
+
+class CourseGroupMemberUpdate(UserPassesTestMixin, CourseRelatedMixin, generic.UpdateView):
+    model = models.CourseGroupMember
+    form_class = forms.CourseGroupMemberCreateForm
+    permission_denied_message = _('You must be logged in as a lecturer for the course group to be able to update the member.')
+
+    def test_func(self) -> bool | None:
+        self.course_group = models.CourseGroup.objects.filter(code=self.kwargs['coursegroup_code']).first()
+        return self.request.user.course_groups.filter(course_group=self.course_group, is_lecturer=True).exists()
+
+    def handle_no_permission(self) -> HttpResponseRedirect:
+        messages.warning(self.request, self.permission_denied_message)
+        return HttpResponseRedirect(reverse('coursegroup_list', kwargs={'course_code':self.course_group.course.code}))
+
+    def get_initial(self) -> Dict[str, Any]:
+        initial = super().get_initial()
+        initial['status'] = self.kwargs.get('status')
+        return initial
+
+    def get_success_url(self) -> str:
+        messages.success(self.request, _(f"Student {self.object} status has been updated."))
+        # TODO: send mail to student
         return reverse('coursegroup_list', kwargs={'course_code':self.course_group.course.code})

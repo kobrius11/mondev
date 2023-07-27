@@ -116,6 +116,7 @@ class CourseGroupMember(TimeTrackedModel):
         null=True, blank=True
     )
     background = models.TextField(_("background"), null=True, blank=True)
+    notes = models.TextField(_("notes"), null=True, blank=True)
     status = models.CharField(_("status"), max_length=15, choices=STATUS_CHOICES, default='new')
 
     class Meta:
