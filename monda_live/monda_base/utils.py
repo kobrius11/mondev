@@ -10,8 +10,11 @@ def textify(html):
     # Strip single spaces in the beginning of each line
     return text_only.replace('\n ', '\n').strip()
 
-def send_template_mail(recipients, subject, template, context):
+def send_template_mail(recipients, subject, template, context: dict):
+    host = 'http://localhost'
+    context['host'] = host
     html_message = render_to_string(template, context)
+    print(html_message)
     message = textify(html_message)
     try:
         sent = send_mail(

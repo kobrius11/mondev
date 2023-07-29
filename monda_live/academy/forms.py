@@ -21,4 +21,6 @@ class CourseGroupMemberUpdateForm(forms.ModelForm):
         widgets = {
             'user': forms.HiddenInput(),
             'course_group': forms.HiddenInput(),
+            'academy_representative': forms.HiddenInput(),
+            'academy_accepted_contract_at': forms.HiddenInput(),
         }

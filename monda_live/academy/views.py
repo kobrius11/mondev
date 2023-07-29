@@ -3,7 +3,8 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib import messages
-from django.db.models import Q, QuerySet
+from django.db import models
+from django.db.models import Q, QuerySet, Model
 from django.db.models.query import QuerySet
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -64,6 +65,7 @@ class CourseGroupListView(CourseRelatedMixin, generic.ListView):
 class CourseGroupEnrollmentView(UserPassesTestMixin, CourseRelatedMixin, generic.CreateView):
     model = models.CourseGroupMember
     form_class = forms.CourseGroupMemberCreateForm
+    template_name = 'academy/coursegroupmember_enroll.html'
     permission_denied_message = _('You must be already logged in and have not yet applied to the same group. If you have already applied, we will send you an email with further instructions.')
 
     def get_context_data(self, **kwargs):
@@ -98,13 +100,14 @@ class CourseGroupEnrollmentView(UserPassesTestMixin, CourseRelatedMixin, generic
         return reverse('coursegroup_list', kwargs={'course_code':self.course_group.course.code})
 
 
-class CourseGroupMemberUpdate(UserPassesTestMixin, CourseRelatedMixin, generic.UpdateView):
+class CourseGroupMemberUpdate(UserPassesTestMixin, generic.UpdateView):
     model = models.CourseGroupMember
-    form_class = forms.CourseGroupMemberCreateForm
+    form_class = forms.CourseGroupMemberUpdateForm
     permission_denied_message = _('You must be logged in as a lecturer for the course group to be able to update the member.')
 
     def test_func(self) -> bool | None:
-        self.course_group = models.CourseGroup.objects.filter(code=self.kwargs['coursegroup_code']).first()
+        self.object = self.get_object()
+        self.course_group = self.object.course_group
         return self.request.user.course_groups.filter(course_group=self.course_group, is_lecturer=True).exists()
 
     def handle_no_permission(self) -> HttpResponseRedirect:
@@ -114,6 +117,9 @@ class CourseGroupMemberUpdate(UserPassesTestMixin, CourseRelatedMixin, generic.U
     def get_initial(self) -> Dict[str, Any]:
         initial = super().get_initial()
         initial['status'] = self.kwargs.get('status')
+        initial['academy_representative'] = self.request.user
+        if self.kwargs['status'] == 'rejected':
+            initial['is_student'] = False
         return initial
 
     def get_success_url(self) -> str:

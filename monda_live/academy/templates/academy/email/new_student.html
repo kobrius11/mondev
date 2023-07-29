@@ -8,5 +8,6 @@
 </p>
 <p>{% trans "payment options"|capfirst %}: {{ student.payment_method }} {{ student.scholarship_sponsor }}</p>
 <hr style="width: 30vw; color: #ffffff;">
-<p>ACCEPT | REJECT</p>
+<p><a href="{{ host }}{% url 'coursegroupmember_update' student.pk 'approved' %}">{% trans "approve"|upper %}</a> 
+ | <a href="{{ host }}{% url 'coursegroupmember_update' student.pk 'rejected' %}">{% trans "reject"|upper %}</a></p>
 {% endblock content %}
