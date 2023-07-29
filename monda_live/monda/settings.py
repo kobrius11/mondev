@@ -184,9 +184,51 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = local_settings.EMAIL_ID
 EMAIL_HOST_PASSWORD = local_settings.EMAIL_PW
 DEFAULT_FROM_EMAIL = local_settings.DEFAULT_FROM_EMAIL
-LOGIN_URL = '/accounts/login/'
+LOGIN_URL = 'login'
 
 VERIFICATION_SUCCESS_TEMPLATE = 'verify_email/email_verification_successful.html'
 VERIFICATION_FAILED_TEMPLATE = 'verify_email/email_verification_failed.html'
 VERIFICATION_SUCCESS_MSG = """Your Email is verified successfully and account has been activated.
 You can login with the credentials now..."""
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    # File handler for logging DEBUG and above messages to 'django_error.log', 'app.log' and 'console' files.
+    "handlers": {
+        "file_for_django": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": "logs/django_error.log",
+        },
+        "file_for_apps": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler", 
+            "filename": "logs/app.log",
+        },
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+        },
+    },
+    # Django logger configuration: log WARNING, INFO and above messages to 'django_error.log' and app.log.
+    "loggers": {
+        "django": {
+            "handlers": ["file_for_django"],
+            "level": "WARNING",
+            "propagate": True,
+        },
+        "user_profile": {  
+            "handlers": ["file_for_apps"],
+            "level": "INFO",  
+            "propagate": False,
+        },
+    },
+}
+
+# If DEBUG is True, add the console handler to all logger configurations.
+if DEBUG:
+    for logger_config in LOGGING["loggers"].values():
+        if "console" not in logger_config["handlers"]:
+            logger_config["handlers"].append("console")

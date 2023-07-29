@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col">
+            <h1>{{ status }}</h1>
+            <hr>
+            <p>{{ msg }}</p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col">
+            <a href="{{ link }}" class="btn btn-primary">Log In</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
