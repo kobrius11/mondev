@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% load static i18n %}
-{{ minor_msg }}{{ status }}{{ msg }}
+
 {%block content%}
 
+<h1>{% trans status %}</h1>
+<p>{% trans msg %}</p>
+<p>{% trans minor_msg %}</p>
 
 {%endblock%}
 
