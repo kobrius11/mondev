@@ -1,21 +1,15 @@
 {% extends 'base.html' %}{% load i18n %}
 {% block content %}
-<h1>{% trans "enroll to"|capfirst %} {{ course_group.name }}</h1>
-{% blocktrans %}<p>
-Thank you for the interest in MoNDA.live course. Please fill in
-this small form below. In the background section, please describe
-your professional background, and confirm that you meet the minimum
-personal maturity requirements and agree to MoNDA terms and 
-conditions and code of conduct.</p>
-<p>If you want to be sponsored, you can select "Sponsored Scholarship"
-and name your scholarship provider. For example, if you are in a 
-labour market in Lithuania, you can ask the scholarship from UŽT 
-(Užimtumo Tarnyba).
-</p>{% endblocktrans %}
+<h1>{% trans "updating member of"|capfirst %} {{ form.instance.course_group.name }}</h1>
 <form method="post">
     {% csrf_token %}
+    <h2>{{ form.instance.user.first_name }} {{ form.instance.user.last_name }}</h2>
+    <p>{% trans "email" %}: {{ form.instance.user.email }}</p>
+    <h3>{% trans "background"|capfirst %}</h3>
+    <p>{{ form.instance.background|linebreaksbr }}</p>
+    <h3>{% trans "application status update form"|capfirst %}</h3>
     {{ form.as_p }}
     <p>{% trans "The application is legally binding." %}</p>
-    <button class="btn" type="submit">{% trans "enroll"|capfirst %}</button>
+    <button class="btn" type="submit">{% trans "update"|capfirst %}</button>
 </form>
 {% endblock content %}

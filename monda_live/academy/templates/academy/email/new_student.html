@@ -1,0 +1,13 @@
+{% extends 'base_email.html' %}{% load i18n %}
+{% block content %}
+<h1>{% trans "new"|capfirst %} {{ course_group }} {% trans "student" %}</h1>
+<p>{% trans "student"|capfirst %}: {{ student.user.first_name }} {{ student.user.last_name }} ({{ student.user }})</p>
+<p>{% trans "student e-mail"|capfirst %}: <a href="mailto:{{ student.user.email }}">{{ student.user.email }}</a></p>
+<p>{% trans "student background"|capfirst %}: <br>
+{{ student.background|linebreaksbr }}
+</p>
+<p>{% trans "payment options"|capfirst %}: {{ student.payment_method }} {{ student.scholarship_sponsor }}</p>
+<hr style="width: 30vw; color: #ffffff;">
+<p><a href="{{ host }}{% url 'coursegroupmember_update' student.pk 'approved' %}">{% trans "approve"|upper %}</a> 
+ | <a href="{{ host }}{% url 'coursegroupmember_update' student.pk 'rejected' %}">{% trans "reject"|upper %}</a></p>
+{% endblock content %}
