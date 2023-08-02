@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{%block content%}
+<style>
+    main {
+        text-align: center;
+        margin-top: 5rem;
+    }
+    main h5 {
+        font-size: 5em;
+        color: #000;
+
+    }
+</style>
+
+<h5>Oops!</h5>
+<p>{% trans status %}</p>
+<p>{% trans msg %}</p>
+<p>{% trans minor_msg %}</p>
+{%endblock%}
+

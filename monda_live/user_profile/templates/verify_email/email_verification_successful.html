@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{%block content%}
+    <h1>{% trans status %}</h1>
+    <p>{% trans msg %}</p>
+    <a class="btn" href="{{ link }}">{% trans "log in"|title %}</a>
+{%endblock%}

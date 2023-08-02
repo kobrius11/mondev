@@ -7,6 +7,7 @@ from . forms import ProfileUpdateForm, UserUpdateForm, SignupForm
 from django.views.generic import FormView, TemplateView
 from django.urls import reverse_lazy
 from verify_email.email_handler import send_verification_email
+from verify_email.views import verify_user_and_activate
 from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
@@ -65,7 +66,7 @@ class SignupView(FormView):
         return super().dispatch(request, *args, **kwargs)
     
 class EmailTemplateView(TemplateView):
-    template_name = 'verify_email/email_verification_msg.html'
+    template_name = 'verify_email/email_verification_successful.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
