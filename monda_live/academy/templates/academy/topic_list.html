@@ -10,8 +10,10 @@
     <h2>{% trans "topics"|title %}</h2>
     <ul class="content">
         {% for topic in topic_list %}
-            <h3>{{ topic }} <span class="float-right small">&#8987; {{ topic.length }}</span></h3>
-            {{ topic.description|safe }}
+            <li>
+                <h3>{{ topic }} <span class="float-right small">&#8987; {{ topic.length }}</span></h3>
+                {{ topic.description|safe }}
+            </li>
         {% endfor %}
     </ul>
 {% endif %}
