@@ -123,8 +123,7 @@ msgstr "atstatyti slaptažodį"
 
 #: user_profile/templates/registration/password_reset_confirm.html:12
 msgid "Password Reset Failed: the link has expired and is no longer valid."
-msgstr ""
-"Atsatyti Slaptažodį Nepavyko: nuoruda nebegalioja ir daugiau nebe veiksminga."
+msgstr "Slaptažodžio atstatyti nepavyko: nuoruda nebegalioja."
 
 #: user_profile/templates/registration/password_reset_done.html:2
 #: user_profile/templates/registration/password_reset_form.html:2
