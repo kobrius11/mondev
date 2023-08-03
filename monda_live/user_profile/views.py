@@ -37,7 +37,7 @@ def profile_update(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            logger.info(f"Profile updated by user: '{request.user.username}' - Time: {now().strftime('%Y-%m-%d %H:%M:%S %z')}")
+            logger.info(f"Profile updated by user: '{request.user.username}'")
             messages.success(request, _("Profile updated."))
             return redirect('profile')
     else:
@@ -56,7 +56,7 @@ class SignupView(FormView):
         user.set_password(form.cleaned_data['password'])
         user.is_active = False
         user.save()
-        logger.info(f"User registration successful by user: '{user.username}' - Time: {now().strftime('%Y-%m-%d %H:%M:%S %z')}")
+        logger.info(f"User registration successful by user: '{user.username}'")
         inactive_user = send_verification_email(self.request, form)
 
         messages.success(self.request, _("User registration successful!"))
@@ -64,12 +64,12 @@ class SignupView(FormView):
 
     def form_invalid(self, form):
         messages.error(self.request, _("Error occurred during registration."))
-        logger.warning(f"Error occurred during registration - Time: {now().strftime('%Y-%m-%d %H:%M:%S %z')}")
+        logger.warning(f"Error occurred during registration")
         return super().form_invalid(form)
 
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_authenticated:
-            logger.info(f"In order to sign up, you need to logout first - Time: {now().strftime('%Y-%m-%d %H:%M:%S %z')}")
+            logger.info(f"In order to sign up, you need to logout first")
             messages.info(self.request, _('In order to sign up, you need to logout first'))
             return redirect('index')
         return super().dispatch(request, *args, **kwargs)
@@ -85,8 +85,8 @@ class EmailTemplateView(TemplateView):
 
 @receiver(user_logged_in)
 def log_user_login(sender, request, user, **kwargs):
-    logger.info(f"User logged in. User: '{user.username}' - Time: {now().strftime('%Y-%m-%d %H:%M:%S %z')}")
+    logger.info(f"User logged in. User: '{user.username}'")
 
 @receiver(user_logged_out)
 def log_user_logout(sender, request, user, **kwargs):
-    logger.info(f"User logged out. User: '{user.username}' - Time: {now().strftime('%Y-%m-%d %H:%M:%S %z')}")
+    logger.info(f"User logged out. User: '{user.username}'")
