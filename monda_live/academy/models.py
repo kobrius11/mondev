@@ -73,6 +73,10 @@ class CourseGroup(CodeNamedModel):
         if self.starting_date - timezone.datetime.date(timezone.datetime.today()) > timedelta(days=1):
             return True
 
+    @property
+    def students(self):
+        return self.course_group_members.filter(is_student=True)
+
 
 class CourseGroupMember(TimeTrackedModel):
     PAYMENT_CHOICES = (
@@ -82,8 +86,16 @@ class CourseGroupMember(TimeTrackedModel):
         ('sponsored', _("Sponsored Scholarship")),
     )
 
+    STATUS_CHOICES = (
+        ('new', _("New")),
+        ('approved', _("Approved")),
+        ('enrolled', _("Enrolled")),
+        ('graduated', _("Graduated")),
+        ('rejected', _("Rejected")),
+    )
+
     user = models.ForeignKey(User, verbose_name=_("user"), on_delete=models.CASCADE, related_name='course_groups')
-    course_group = models.ForeignKey(CourseGroup, verbose_name=_("course group"), on_delete=models.CASCADE, related_name='students')
+    course_group = models.ForeignKey(CourseGroup, verbose_name=_("course group"), on_delete=models.CASCADE, related_name='course_group_members')
     price = models.DecimalField(_("price"), max_digits=18, decimal_places=2, default=0)
     paid = models.DecimalField(_("paid"), max_digits=18, decimal_places=2, default=0)
     payment_method = models.CharField(_("payment method"), max_length=15, choices=PAYMENT_CHOICES, default='pre_kevin')
@@ -104,13 +116,15 @@ class CourseGroupMember(TimeTrackedModel):
         null=True, blank=True
     )
     background = models.TextField(_("background"), null=True, blank=True)
+    notes = models.TextField(_("notes"), null=True, blank=True)
+    status = models.CharField(_("status"), max_length=15, choices=STATUS_CHOICES, default='new')
 
     class Meta:
         verbose_name = _("course group member")
         verbose_name_plural = _("course group members")
         ordering = ('course_group', 'user')
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.course_group}: {self.user}"
 
     def save(self, *args, **kwargs):
