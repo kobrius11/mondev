@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-07-23 16:29+0300\n"
+"POT-Creation-Date: 2023-07-23 19:21+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,110 +19,124 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
-#: academy/models.py:13 academy/models.py:55 academy/models.py:71
+
+#: academy/models.py:14 academy/models.py:55 academy/models.py:81
+#: academy/templates/academy/coursegroup_list.html:15
 #: academy/templates/academy/topic_list.html:4
 msgid "price"
 msgstr "kaina"
 
-#: academy/models.py:14 academy/models.py:26
+#: academy/models.py:15 academy/models.py:27
 msgid "description"
 msgstr "aprašymas"
 
-#: academy/models.py:17 academy/models.py:22 academy/models.py:39
-#: academy/models.py:53
+#: academy/models.py:18 academy/models.py:23 academy/models.py:40
+#: academy/models.py:54
 msgid "course"
 msgstr "kursas"
 
-#: academy/models.py:18
+#: academy/models.py:19
 msgid "courses"
 msgstr "kursai"
 
-#: academy/models.py:27
+#: academy/models.py:28
 msgid "Length"
 msgstr "Trukmė"
 
-#: academy/models.py:30 academy/models.py:35 academy/models.py:40
-#: academy/models.py:94
+#: academy/models.py:31 academy/models.py:36 academy/models.py:41
+#: academy/models.py:104
 msgid "topic"
 msgstr "tema"
 
-#: academy/models.py:31 academy/templates/academy/topic_list.html:8
+#: academy/models.py:32 academy/templates/academy/topic_list.html:10
 msgid "topics"
 msgstr "temos"
 
-#: academy/models.py:41 academy/models.py:95
+#: academy/models.py:42 academy/models.py:105
 msgid "order"
 msgstr "užsakymai"
 
-#: academy/models.py:44
+#: academy/models.py:45
 msgid "course topic"
 msgstr "kurso tema"
 
-#: academy/models.py:45
+#: academy/models.py:46
 msgid "course topics"
 msgstr "kurso temos"
 
-#: academy/models.py:54
+#: academy/models.py:56
 msgid "starting date"
 msgstr "pradžios data"
 
-#: academy/models.py:58 academy/models.py:70
+#: academy/models.py:57
+msgid "graduation date"
+msgstr "baigimo data"
+
+#: academy/models.py:58
+msgid "days per week"
+msgstr "dienos per savaitę"
+
+#: academy/models.py:59
+msgid "hours per day"
+msgstr "valandos per dieną"
+
+#: academy/models.py:62 academy/models.py:80
 msgid "course group"
 msgstr "kurso grupė"
 
-#: academy/models.py:59
+#: academy/models.py:63
 msgid "course groups"
 msgstr "kurso grupės"
 
-#: academy/models.py:69
+#: academy/models.py:79
 msgid "user"
 msgstr "vartotojas"
 
-#: academy/models.py:72
+#: academy/models.py:82
 msgid "paid"
 msgstr "sumokėta"
 
-#: academy/models.py:73
+#: academy/models.py:83
 msgid "student"
 msgstr "studentas"
 
-#: academy/models.py:74
+#: academy/models.py:84
 msgid "lecturer"
 msgstr "dėstytojas"
 
-#: academy/models.py:75
+#: academy/models.py:85
 msgid "assistant"
 msgstr "asistentas"
 
-#: academy/models.py:76
+#: academy/models.py:86
 msgid "expert"
 msgstr "specialistas"
 
-#: academy/models.py:77
+#: academy/models.py:87
 msgid "recruiter"
 msgstr "įdarbinimo specialistas"
 
-#: academy/models.py:80
+#: academy/models.py:90
 msgid "course group member"
 msgstr "kurso grupės narys "
 
-#: academy/models.py:81
+#: academy/models.py:91
 msgid "course group members"
 msgstr "kurso grupės nariai"
 
-#: academy/models.py:96
+#: academy/models.py:106
 msgid "URL"
 msgstr "Nuoruda"
 
-#: academy/models.py:97
+#: academy/models.py:107
 msgid "file"
 msgstr "duomenys"
 
-#: academy/models.py:100 academy/models.py:106
+#: academy/models.py:110 academy/models.py:116
 msgid "topic material"
 msgstr "temos medžiaga"
 
-#: academy/models.py:101
+#: academy/models.py:111
 msgid "topic materials"
 msgstr "temos medžiaga"
 
@@ -135,5 +149,63 @@ msgid ""
 "We do not offer any courses yet. For more information please contact us or "
 "come back later."
 msgstr ""
-"Šiuo metu neteikiame jokių kursų. Norėdami gauti daugiau informacijos, susisiekite su mumis arba "
-"sugrįžk vėliau."
+"Šiuo metu neteikiame jokių kursų. Norėdami gauti daugiau informacijos, "
+"susisiekite su mumis arba sugrįžkite vėliau."
+
+#: academy/templates/academy/coursegroup_list.html:3
+msgid "groups"
+msgstr "grupės"
+
+#: academy/templates/academy/coursegroup_list.html:5
+msgid ""
+"\n"
+"        You can apply to enroll into the following open groups. \n"
+"        You need to be logged in to do so. If you do not have an \n"
+"        account, you can sign up for free\n"
+"    "
+msgstr ""
+"\n"
+"        Galite pateikti paraišką registracijai į šias atviras grupes. \n"
+"        Norėdami tai padaryti, turite būti prisijungę. Jei neturite \n"
+"        paskyros, galite užsiregistruoti nemokamai\n"
+"    "
+
+#: academy/templates/academy/coursegroup_list.html:9
+msgid "here"
+msgstr "čia"
+
+#: academy/templates/academy/coursegroup_list.html:12
+msgid "group"
+msgstr "grupė"
+
+#: academy/templates/academy/coursegroup_list.html:13
+msgid "starts"
+msgstr "prasideda"
+
+#: academy/templates/academy/coursegroup_list.html:14
+msgid "weekly intensity"
+msgstr "savaitės intesyvumas"
+
+#: academy/templates/academy/coursegroup_list.html:16
+msgid "actions"
+msgstr "veiksmai"
+
+#: academy/templates/academy/coursegroup_list.html:22
+msgid "days"
+msgstr "dienos"
+
+#: academy/templates/academy/coursegroup_list.html:23
+msgid "hours"
+msgstr "valandos"
+
+#: academy/templates/academy/coursegroup_list.html:31
+msgid "enroll"
+msgstr "užsiregistruoti"
+
+#: academy/templates/academy/coursegroup_list.html:38
+msgid "There are no groups provisioned for this course at this moment."
+msgstr "Šiuo metu nėra šiam kursui skirtų grupių."
+
+#: academy/templates/academy/topic_list.html:5
+msgid "enrollment"
+msgstr "registracija"

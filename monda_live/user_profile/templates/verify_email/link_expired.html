@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{%block content%}
+    <p>{% trans status %}<p>
+    <a class="btn" href="{% url 'request-new-link-from-token' encoded_email encoded_token %}">This is request new, link</a>
+{% endblock %}

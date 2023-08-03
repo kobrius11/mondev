@@ -1,18 +1,8 @@
 {% extends "base.html" %}
+{% load static i18n %}
 
-{% block content %}
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col">
-            <h1>{{ status }}</h1>
-            <hr>
-            <p>{{ msg }}</p>
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col">
-            <a href="{{ link }}" class="btn btn-primary">Log In</a>
-        </div>
-    </div>
-</div>
-{% endblock %}
+{%block content%}
+    <h1>{% trans status %}</h1>
+    <p>{% trans msg %}</p>
+    <a class="btn" href="{{ link }}">{% trans "log in"|title %}</a>
+{%endblock%}
