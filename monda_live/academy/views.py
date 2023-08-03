@@ -14,6 +14,11 @@ from django.views import generic
 from monda_base.views import TranslatedListView
 from monda_base.utils import send_template_mail
 from . import models, forms
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import authentication, permissions
+
+
 
 LANGUAGE_CODE = settings.LANGUAGE_CODE
 
@@ -126,3 +131,20 @@ class CourseGroupMemberUpdate(UserPassesTestMixin, generic.UpdateView):
         messages.success(self.request, _(f"Student {self.object} status has been updated."))
         # TODO: send mail to student
         return reverse('coursegroup_list', kwargs={'course_code':self.course_group.course.code})
+
+
+## please review regarding issue 37
+# reik issiaiskinti ar coursegroup turi coursegroupmember(useri)
+# reik issiknti ar coursegroupsession vyksta siandien
+# if not exists, create Attendance instance with checkin value of now for CourseGroupMember and CourseGroupSession instances
+class Vardas(APIView):
+    #authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, format=None):
+        """
+        Returns CourseGroup if user is in one 
+        """
+        CourseGroupMember = get_object_or_404(models.CourseGroupMember, user=self.request.user)
+        CourseGroup = get_object_or_404(models.CourseGroup, course_group_members=self.request.user)
+        return Response(CourseGroup)
