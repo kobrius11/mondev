@@ -1,11 +1,11 @@
 {% extends 'base_email.html' %}
-{% load i18n %}
+{% load static i18n %}
 
 {% block image %}<img style="width: 200px;
                             height: 175px; 
                             margin-top: 73px;" 
                             src="https://cdn-icons-png.flaticon.com/128/3296/3296464.png">{% endblock image %}
-{% block title %}<h1> {% trans "please verify your email"|capfirst %} </h1>{% endblock title %}
+{% block title %}<h1 style="text-align: center;"> {% trans "please verify your email"|capfirst %} </h1>{% endblock title %}
 {% block content %}
     <p>{% trans "hi"|capfirst %} {{ inactive_user }}, <br>
         {% trans "welcome to"|capfirst %} MoNDA!<br>

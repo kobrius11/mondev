@@ -21,7 +21,7 @@ msgstr ""
 "1 : n % 1 != 0 ? 2: 3);\n"
 #: monda_base/models.py:8
 msgid "created at"
-msgstr "sukūrta"
+msgstr "sukurta"
 
 #: monda_base/models.py:9
 msgid "updated at"

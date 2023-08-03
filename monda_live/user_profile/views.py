@@ -7,6 +7,7 @@ from . forms import ProfileUpdateForm, UserUpdateForm, SignupForm
 from django.views.generic import FormView, TemplateView
 from django.urls import reverse_lazy
 from verify_email.email_handler import send_verification_email
+from verify_email.views import verify_user_and_activate
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.dispatch import receiver
