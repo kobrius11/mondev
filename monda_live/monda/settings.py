@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'contract_app',
     'mondev_site',
     'user_profile',
     'academy',
@@ -195,24 +196,30 @@ You can login with the credentials now..."""
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    # File handler for logging DEBUG and above messages to 'django_error.log', 'app.log' and 'console' files.
+    "formatters": {
+        "default": {
+            "format": "%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+        },
+    },
     "handlers": {
         "file_for_django": {
             "level": "DEBUG",
             "class": "logging.FileHandler",
             "filename": "logs/django_error.log",
+            "formatter": "default",
         },
         "file_for_apps": {
             "level": "DEBUG",
             "class": "logging.FileHandler", 
             "filename": "logs/app.log",
+            "formatter": "default",
         },
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
+            "formatter": "default",
         },
     },
-    # Django logger configuration: log WARNING, INFO and above messages to 'django_error.log' and app.log.
     "loggers": {
         "django": {
             "handlers": ["file_for_django"],
@@ -232,3 +239,4 @@ if DEBUG:
     for logger_config in LOGGING["loggers"].values():
         if "console" not in logger_config["handlers"]:
             logger_config["handlers"].append("console")
+            
