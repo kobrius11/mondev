@@ -3,9 +3,10 @@ from django.urls import reverse
 from tinymce.models import HTMLField
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
+from monda_base.models import NamedModel, TimeTrackedModel
 
 
-class ContractTemplate(models.Model):
+class ContractTemplate(NamedModel):
     contract_template_text = HTMLField(_("contract template text"))
     
     class Meta:
@@ -16,7 +17,7 @@ class ContractTemplate(models.Model):
         return reverse("contract_template_detail", kwargs={"pk": self.pk})
 
 
-class Contract(models.Model):
+class Contract(TimeTrackedModel):
     contract_text = HTMLField(_("contract text"))
     contract_template = models.ForeignKey(
                     ContractTemplate, 
@@ -32,7 +33,7 @@ class Contract(models.Model):
         return reverse("contract_detail", kwargs={"pk": self.pk})
 
 
-class Signator(models.Model):
+class Signator(TimeTrackedModel):
     user = models.OneToOneField(
                     get_user_model(), 
                     verbose_name=_("user"), 

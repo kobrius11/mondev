@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'contract_app',
+    'contracts',
     'mondev_site',
     'user_profile',
     'academy',
@@ -242,4 +242,3 @@ if DEBUG:
     for logger_config in LOGGING["loggers"].values():
         if "console" not in logger_config["handlers"]:
             logger_config["handlers"].append("console")
-            
