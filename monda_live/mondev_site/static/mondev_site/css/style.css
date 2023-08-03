@@ -5,7 +5,8 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-image: url("/static/mondev_site/images/background.png");
+    background-color: #cccccc;
+    background-image: url("/static/mondev_site/images/background.svg");
     background-repeat: no-repeat;
     background-size: cover;
 }

@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'contracts',
     'mondev_site',
     'user_profile',
     'academy',
@@ -193,3 +194,51 @@ EXPIRE_AFTER = '2m' # email expires after 2 minutes, MAX_RETRIES = 2(default)
 
 VERIFICATION_SUCCESS_MSG = """Your Email is verified successfully and account has been activated.
 You can login with the credentials now..."""
+
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "default": {
+            "format": "%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+        },
+    },
+    "handlers": {
+        "file_for_django": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler",
+            "filename": "logs/django_error.log",
+            "formatter": "default",
+        },
+        "file_for_apps": {
+            "level": "DEBUG",
+            "class": "logging.FileHandler", 
+            "filename": "logs/app.log",
+            "formatter": "default",
+        },
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "default",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file_for_django"],
+            "level": "WARNING",
+            "propagate": True,
+        },
+        "user_profile": {  
+            "handlers": ["file_for_apps"],
+            "level": "INFO",  
+            "propagate": False,
+        },
+    },
+}
+
+# If DEBUG is True, add the console handler to all logger configurations.
+if DEBUG:
+    for logger_config in LOGGING["loggers"].values():
+        if "console" not in logger_config["handlers"]:
+            logger_config["handlers"].append("console")
