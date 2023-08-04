@@ -150,7 +150,7 @@ class TopicMaterialTranslation(TopicMaterial, TranslatedModel):
 
 
 ## please review regarding issue 37
-class CourseGroupSession(NamedModel):
+class CourseGroupSession(TimeTrackedModel):
     course_group = models.ForeignKey(
         CourseGroup, 
         verbose_name=_("course group"), 
@@ -168,7 +168,7 @@ class CourseGroupSession(NamedModel):
     stream_url = models.URLField(_("stream url"), null=True, max_length=200)#
 
 
-class Attendance(models.Model):
+class Attendance(TimeTrackedModel):
     course_group_member = models.ForeignKey(
         CourseGroupMember, 
         verbose_name=_("course group member"), 
