@@ -8,6 +8,7 @@ from django.db.models import Q, QuerySet, Model
 from django.db.models.query import QuerySet
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 from django.utils.translation import get_language, gettext_lazy as _
 from django.urls import reverse
 from django.views import generic
@@ -134,17 +135,52 @@ class CourseGroupMemberUpdate(UserPassesTestMixin, generic.UpdateView):
 
 
 ## please review regarding issue 37
-# reik issiaiskinti ar coursegroup turi coursegroupmember(useri)
-# reik issiknti ar coursegroupsession vyksta siandien
-# if not exists, create Attendance instance with checkin value of now for CourseGroupMember and CourseGroupSession instances
-class Vardas(APIView):
-    #authentication_classes = [authentication.TokenAuthentication]
+# find if current user is a CourseGroupMember of the given CourseGroup
+# question does attendence object only is created when user checks in ? (then check_in cant be None and this will not work)
+# or does it creates automatically, when CourseGroupSession is created ? (then check_in can be None and this might work)
+class CheckIn(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, format=None):
-        """
-        Returns CourseGroup if user is in one 
-        """
-        CourseGroupMember = get_object_or_404(models.CourseGroupMember, user=self.request.user)
-        CourseGroup = get_object_or_404(models.CourseGroup, course_group_members=self.request.user)
-        return Response(CourseGroup)
+        attendance = get_object_or_404(models.Attendance, course_group_member__user=self.request.user)
+        today = timezone.now().date()
+        if type(attendance) == models.Attendance:
+            # find if CourseGroupSession is happening today for the CourseGroup
+            if attendance.course_group_session.date == today and attendance.check_in == None: # bug obj.check_in cant be None, 
+                attendance.check_in = timezone.now()
+                attendance.save()
+                return Response(attendance) # succesfull check in
+            else:
+                return # you already checked in for today
+        else:
+            # if not exists, create Attendance instance with checkin value of now for CourseGroupMember and CourseGroupSession instances
+            check_in_time = timezone.now()
+            course_group = get_object_or_404(models.CourseGroup, students='foo') # if user in CourseGroup.students
+            course_topic = get_object_or_404(models.CourseTopic, course=course_group.course)
+            
+            course_group_member = get_object_or_404(models.CourseGroupMember, user=self.request.user, course_group=course_group)
+            course_group_session = get_object_or_404(models.CourseGroupSession, course_topic=course_topic, course_group=course_group)
+            
+            attendance = models.Attendance.objects.create(
+                    course_group_member=course_group_member,
+                    course_group_session=course_group_session,
+                    check_in=check_in_time,
+                    check_out=check_in_time,  # Set check_out to the same as check_in for now
+                )
+            attendance.save()
+            return attendance # succesfull check in
+
+
+# test_func that user is CourseGroupMember of the given Attendance record
+# set checkout to now
+class CheckOut(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def test_func(self):
+        attendance = get_object_or_404(models.Attendance, course_group_member__user=self.request.user)
+        if type(attendance) == models.Attendance and attendance.check_in != None:
+            attendance.check_out = timezone.now()
+            attendance.save()
+            return # successful check out
+        else:
+            return # either you havent checked in or something went teribly wrong
