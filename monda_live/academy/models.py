@@ -162,9 +162,9 @@ class CourseGroupSession(TimeTrackedModel):
         verbose_name=_("course topic"), 
         related_name="course_topics", 
         on_delete=models.CASCADE,
-        null=True,
+        null=True, blank=True
     )
-    date = models.DateField(_("date"), auto_now=False, auto_now_add=False, null=True)
+    date = models.DateField(_("date"), auto_now=False, auto_now_add=False, null=True, blank=True)
     stream_url = models.URLField(_("stream url"), null=True, max_length=200)#
 
 
@@ -181,5 +181,5 @@ class Attendance(TimeTrackedModel):
         related_name= "course_group_sessions",
         on_delete=models.CASCADE
     )
-    check_in = models.DateTimeField(_("check in"))
-    check_out = models.DateTimeField(_("check out"))
+    check_in = models.DateTimeField(_("check in"), default=timezone.now)
+    check_out = models.DateTimeField(_("check out"), null=True, blank=True)

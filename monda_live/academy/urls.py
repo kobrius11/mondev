@@ -10,4 +10,5 @@ urlpatterns = [
     path('course/group/member/<int:pk>/<slug:status>/', views.CourseGroupMemberUpdate.as_view(), name='coursegroupmember_update'),
     
     path('api/coursegroup/<slug:coursegroup_code>/checkin/', api.CheckIn.as_view()),
+    path('api/coursegroup/<int:attendance_id>/checkout/', api.CheckOut.as_view()),
 ]

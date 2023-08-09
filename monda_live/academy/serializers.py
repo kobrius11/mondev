@@ -9,4 +9,6 @@ class CourseGroupMemberSerializer(serializers.ModelSerializer):
 class AttendanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attendance
-        exclude = ['check_out']
+        fields = '__all__'
+        read_only_fields = ['check_in', 'check_out']
+        

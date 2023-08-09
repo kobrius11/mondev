@@ -1,6 +1,6 @@
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import ListCreateAPIView, UpdateAPIView
 from rest_framework.response import Response
-from rest_framework import permissions
+from rest_framework import permissions, status
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from .. import models 
@@ -57,3 +57,24 @@ class CheckIn(ListCreateAPIView):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
     
+
+class CheckOut(UpdateAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = AttendanceSerializer
+
+    def get_object(self):
+        attendance_id = self.kwargs['attendance_id']
+        return get_object_or_404(models.Attendance, id=attendance_id)
+
+    def test_func(self, attendance):
+        user = self.request.user
+        return attendance.course_group_member.user == user
+    
+    def perform_update(self, serializer):
+        attendance = self.get_object()
+
+        if not self.test_func(attendance):
+            # Check if the user is authorized to check out this attendance
+            return Response(status=status.HTTP_403_FORBIDDEN)
+
+        serializer.save(check_out=timezone.now())
