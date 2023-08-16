@@ -8,12 +8,14 @@ from django.db.models import Q, QuerySet, Model
 from django.db.models.query import QuerySet
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 from django.utils.translation import get_language, gettext_lazy as _
 from django.urls import reverse
 from django.views import generic
 from monda_base.views import TranslatedListView
 from monda_base.utils import send_template_mail
-from . import models, forms
+from .. import models, forms
+
 
 LANGUAGE_CODE = settings.LANGUAGE_CODE
 
@@ -126,3 +128,4 @@ class CourseGroupMemberUpdate(UserPassesTestMixin, generic.UpdateView):
         messages.success(self.request, _(f"Student {self.object} status has been updated."))
         # TODO: send mail to student
         return reverse('coursegroup_list', kwargs={'course_code':self.course_group.course.code})
+
