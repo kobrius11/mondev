@@ -147,3 +147,39 @@ class TopicMaterial(NamedModel):
 
 class TopicMaterialTranslation(TopicMaterial, TranslatedModel):
     topic_material = models.ForeignKey(TopicMaterial, verbose_name=_("topic material"), on_delete=models.CASCADE, related_name='trabslations')
+
+
+## please review regarding issue 37
+class CourseGroupSession(TimeTrackedModel):
+    course_group = models.ForeignKey(
+        CourseGroup, 
+        verbose_name=_("course group"), 
+        related_name="course_groups", 
+        on_delete=models.CASCADE
+    )
+    course_topic = models.ForeignKey(
+        CourseTopic, 
+        verbose_name=_("course topic"), 
+        related_name="course_topics", 
+        on_delete=models.CASCADE,
+        null=True, blank=True
+    )
+    date = models.DateField(_("date"), auto_now=False, auto_now_add=False, null=True, blank=True)
+    stream_url = models.URLField(_("stream url"), null=True, max_length=200)#
+
+
+class Attendance(TimeTrackedModel):
+    course_group_member = models.ForeignKey(
+        CourseGroupMember, 
+        verbose_name=_("course group member"), 
+        related_name= "course_group_members",
+        on_delete=models.CASCADE
+    )
+    course_group_session = models.ForeignKey(
+        CourseGroupSession, 
+        verbose_name=_("course group session"), 
+        related_name= "course_group_sessions",
+        on_delete=models.CASCADE
+    )
+    check_in = models.DateTimeField(_("check in"), default=timezone.now)
+    check_out = models.DateTimeField(_("check out"), null=True, blank=True)
