@@ -6,12 +6,21 @@
     main {
         overflow-x: hidden;
     }
-    header nav.main ul li {
+    header nav.main .top-level-menu {
         display: none;
-        margin: 0;
-        padding: 0.5rem; 
     }
     header nav.main .burger {
         display: inline-block;
+    }
+    header nav.main .top-level-menu.active {
+        display: flex;
+        position: absolute;
+        left: 15px;
+        top: 8vh;
+        height: 30vh;
+        background-color: rgba(26, 26, 26, 0.733);
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
     }
 }
