@@ -33,3 +33,12 @@ async function monda_uncollapse(obj_id) {
         uncollapse_button.classList.add("hidden");
     };
 };
+
+async function active_button(obj_id) {
+    var uncollapsible = document.getElementById(obj_id);
+    if (uncollapsible.classList.contains("active")) {
+        uncollapsible.classList.remove("active");
+    } else {
+        uncollapsible.classList.add("active");
+    };
+};
