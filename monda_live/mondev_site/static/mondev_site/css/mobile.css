@@ -10,17 +10,19 @@
         display: none;
     }
     header nav.main .burger {
+        margin-top: 1.5vh;
         display: inline-block;
+        position: fixed;
+        right: 0;
     }
     header nav.main .top-level-menu.active {
         display: flex;
         position: absolute;
-        left: 15px;
-        top: 8vh;
+        top: 5vh;
         height: 30vh;
         background-color: rgba(26, 26, 26, 0.733);
         flex-direction: column;
         align-items: center;
-        width: 50%;
+        width: 100%;
     }
 }
