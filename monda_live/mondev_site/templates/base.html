@@ -21,7 +21,10 @@
 <body>
     <header>
         <nav class="main">
-            <span class="logo"><a href="{% url 'index' %}">MoNDA.live</a></span>
+            <a href="{% url 'index' %}">
+                <img class="logoimg" src="/static/mondev_site/images/logo.svg" alt="Logo">
+            </a>
+            <span class="logo"><a href="{% url 'index' %}">GKA</a></span>
             <ul class="top-level-menu">
                 <li><a href="{% url 'course_list' %}">{% trans "courses"|title %}</a></li>
                 <span class="spacer"></span>

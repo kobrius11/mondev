@@ -62,6 +62,13 @@ header nav.main .logo {
     padding: 1rem 0;
 }
 
+header nav.main .logoimg {
+    width: 5vh;
+    padding-top: 0.3rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
 .top-level-menu {
     width: 100%;
     padding-right: 0.5rem;
