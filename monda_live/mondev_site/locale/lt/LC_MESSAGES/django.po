@@ -45,7 +45,7 @@ msgstr "kursai"
 
 #: mondev_site/templates/base.html:29
 msgid "admin"
-msgstr "administratorius"
+msgstr "admin"
 
 #: mondev_site/templates/base.html:32
 msgid "log out"
