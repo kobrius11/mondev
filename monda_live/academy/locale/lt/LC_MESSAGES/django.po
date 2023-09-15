@@ -126,7 +126,7 @@ msgstr "kurso grupės nariai"
 
 #: academy/models.py:106
 msgid "URL"
-msgstr "Nuoruda"
+msgstr "Nuoroda"
 
 #: academy/models.py:107
 msgid "file"
