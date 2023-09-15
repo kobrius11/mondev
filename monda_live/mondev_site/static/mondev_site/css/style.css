@@ -54,19 +54,18 @@ header nav.main ul {
 header nav.main ul li {
     display: inline-block;
     margin: 0;
-    padding: 0.5rem; 
+    padding: 0.6rem; 
 }
 
 header nav.main .logo {
     margin: 0.5rem;
     padding: 1rem 0;
+    font-size: 1.1rem;
 }
 
 header nav.main .logoimg {
     width: 5vh;
-    padding-top: 0.3rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
 }
 
 header nav.main .burger {
