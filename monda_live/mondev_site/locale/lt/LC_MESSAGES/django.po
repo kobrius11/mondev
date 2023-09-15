@@ -39,6 +39,10 @@ msgstr "viešai prieinami"
 msgid "page"
 msgstr "puslapis"
 
+#: mondev_site/templates/base.html:24
+msgid "MoNDA.live"
+msgstr "GKA"
+
 #: mondev_site/templates/base.html:25
 msgid "courses"
 msgstr "kursai"
