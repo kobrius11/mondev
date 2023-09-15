@@ -21,8 +21,11 @@
 <body>
     <header>
         <nav class="main">
-            <span class="logo"><a href="{% url 'index' %}">MoNDA.live</a></span>
-            <ul class="top-level-menu">
+            <span class="logo"><a href="{% url 'index' %}">{% trans "MoNDA.live" %}</a></span>
+            <span class="burger">
+                <a id="burger-button" class="btn dim" onclick="active_button('top-level-menu');"><svg width="18" height="12" viewBox="0 0 18 12" xmlns="http://www.w3.org/2000/svg"><path d="M0 12h18v-2h-18v2zm0-5h18v-2h-18v2zm0-7v2h18v-2h-18z" fill="currentColor"></path></svg></a>
+            </span>
+            <ul id="top-level-menu" class="top-level-menu">
                 <li><a href="{% url 'course_list' %}">{% trans "courses"|title %}</a></li>
                 <span class="spacer"></span>
                 {% if request.user.is_authenticated %}
@@ -53,8 +56,8 @@
     {% block complex_content %}
         {% block complex_sidebar %}
         <aside class="sidebar">
-            <a class="btn dim text-right {% if request.session.sidebar_state %}block{% else %}hidden{% endif %}" id="sidebar-collapse" onclick="monda_collapse('sidebar');">{% trans "hide"|lower %} &#171;</a>
-            <a class="btn dim {% if request.session.sidebar_state %}hidden{% else %}block{% endif %}" id="sidebar-uncollapse" onclick="monda_uncollapse('sidebar');">&#187;</a>
+            <a class="btn dim text-right {% if request.session.sidebar_state %}block{% else %}hidden{% endif %}" id="sidebar-collapse" onclick="monda_collapse('sidebar', sidebar_state_closed_url);">{% trans "hide"|lower %} &#171;</a>
+            <a class="btn dim {% if request.session.sidebar_state %}hidden{% else %}block{% endif %}" id="sidebar-uncollapse" onclick="monda_uncollapse('sidebar', sidebar_state_open_url);">&#187;</a>
             <div id="sidebar-content" class="{% if request.session.sidebar_state %}{% else %}hidden{% endif %}">{% block sidebar %}
                 <h3>{% trans "your courses"|title %}</h3>
             {% endblock sidebar %}</div>
