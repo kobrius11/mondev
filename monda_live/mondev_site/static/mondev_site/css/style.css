@@ -8,7 +8,7 @@ body {
     background-color: #cccccc;
     background-image: url("/static/mondev_site/images/background.svg");
     background-repeat: no-repeat;
-    background-size: cover;
+    background-attachment: fixed;
 }
 
 main {
