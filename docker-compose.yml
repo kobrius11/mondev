@@ -25,6 +25,7 @@ services:
       bash -c "python wait_for_postgres.py &&
                python manage.py migrate &&
                python manage.py collectstatic --noinput &&
+               python manage.py compilemessages &&
                gunicorn monda.wsgi --bind 0.0.0.0:8000"
   db:
     image: postgres
