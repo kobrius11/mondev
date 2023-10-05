@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-FROM python:slim-bullseye
+FROM python:3.11-slim-bullseye
 ARG run_as
 RUN adduser $run_as
 WORKDIR /app
